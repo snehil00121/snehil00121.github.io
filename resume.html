@@ -8,62 +8,28 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     
+    <!-- Highlight.js for Code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
     <style>
         .resume-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             color: var(--text-main);
-            font-family: var(--font-sans);
+            font-family: var(--font-mono);
             line-height: 1.5;
             padding: 2rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
-        .resume-container h1 {
-            text-align: center;
-            font-size: 24pt;
-            margin-bottom: 4pt;
-            color: var(--text-main);
-        }
-        .resume-container .subtitle {
-            text-align: center;
-            font-size: 12pt;
-            margin-bottom: 24pt;
-        }
-        .resume-container h2 {
-            font-size: 14pt;
-            border-bottom: 1px solid var(--text-main);
-            margin-top: 16pt;
-            margin-bottom: 8pt;
-            padding-bottom: 2pt;
-            color: var(--text-main);
-        }
-        .resume-container h3 {
-            font-size: 12pt;
-            margin-top: 12pt;
-            margin-bottom: 4pt;
-            color: var(--text-main);
-            font-weight: 600;
-        }
-        .resume-container p {
-            margin-bottom: 8pt;
-            font-size: 11pt;
-        }
-        .resume-container ul {
-            list-style-type: disc;
-            margin-left: 20pt;
-            margin-bottom: 8pt;
-        }
-        .resume-container li {
-            margin-bottom: 2pt;
-            font-size: 11pt;
-            position: static;
-        }
-        .resume-container li::before {
-            content: none;
-        }
-        .resume-container strong {
-            font-weight: 600;
+        .hljs {
+            background: transparent !important;
+            padding: 0;
+            font-size: 0.95rem;
         }
     </style>
 </head>
@@ -79,64 +45,76 @@
         </ul>
     </nav>
 
-    <main style="padding-top: 120px; min-height: 80vh;">
+    <main style="padding-top: 120px; min-height: 80vh; padding-bottom: 50px;">
         <div class="resume-container">
-            <h1>Snehil Shourya</h1>
-            <div class="subtitle">Penetration Tester &nbsp;|&nbsp; Security Researcher &nbsp;|&nbsp; Bug Bounty Hunter</div>
-
-            <h2>Engagement Overview</h2>
-            <p>This document outlines the methodology, tooling, and deliverables I apply during web application vulnerability assessments. It is provided as a reference for the proposed engagement on <strong>complymarket.cloud</strong> (Azure Kubernetes Service).</p>
-
-            <h2>Methodology</h2>
-            
-            <h3>Phase 1 — Reconnaissance</h3>
-            <ul>
-                <li>Passive fingerprinting: HTTP headers, TLS configuration, server banners</li>
-                <li>Subdomain and endpoint enumeration via Amass, Subfinder, and ffuf</li>
-                <li>JavaScript file analysis for exposed API keys, endpoints, and secrets</li>
-                <li>External AKS surface review: publicly exposed services, ingress rules, and misconfigured endpoints</li>
-            </ul>
-
-            <h3>Phase 2 — Vulnerability Assessment</h3>
-            <ul>
-                <li>Manual web application testing across the full OWASP Top 10</li>
-                <li>Authentication and session management analysis</li>
-                <li>Broken access control and IDOR testing</li>
-                <li>SQL Injection and XSS — manual verification, not scanner-only</li>
-                <li>API endpoint enumeration and security misconfiguration review</li>
-                <li>Container and Kubernetes misconfiguration review using Trivy (external surface only, as scoped)</li>
-                <li>Automated surface coverage via Nuclei and Burp Suite Pro active scan</li>
-            </ul>
-
-            <h3>Phase 3 — Reporting</h3>
-            <ul>
-                <li>All findings rated by CVSS v3.1 severity: Critical / High / Medium / Low</li>
-                <li>Each finding includes: description, proof of concept, business impact, remediation steps</li>
-                <li>Report written for both technical and non-technical stakeholders</li>
-                <li>Delivered as a clean PDF within the agreed timeline</li>
-            </ul>
-
-            <h2>Tooling</h2>
-            <ul>
-                <li><strong>Web Application:</strong> Burp Suite Professional, OWASP ZAP</li>
-                <li><strong>Recon &amp; Enumeration:</strong> Amass, Subfinder, ffuf, Gobuster, Shodan</li>
-                <li><strong>Scanning:</strong> Nuclei, Nmap, Nikto, Nessus</li>
-                <li><strong>Exploitation:</strong> Metasploit, SQLMap (manual verification always applied)</li>
-                <li><strong>Cloud:</strong> Trivy (container/AKS misconfiguration), Cloudsploit</li>
-                <li><strong>Scripting:</strong> Python, Bash for custom automation</li>
-            </ul>
-
-            <h2>Credentials &amp; Recognition</h2>
-            <ul>
-                <li><strong>Google Hall of Fame (2025):</strong> Identified a persistent access logic bug in Android 14 -- bounty awarded</li>
-                <li><strong>Apple Hall of Fame (Jan 2025):</strong> Acknowledged for responsible disclosure of critical vulnerabilities</li>
-                <li><strong>NCIIPC (Apr 2025):</strong> Reported a data leak exposing PII of 12,000+ users to India's national cyber agency</li>
-                <li><strong>Certifications:</strong> eJPT, CAP, PT1 (Junior Pentester), HTB CPTS Path Completed</li>
-                <li><strong>HTB Pro Labs:</strong> Dante &amp; POO -- verified enterprise AD lab completions</li>
-            </ul>
-
-            <h2>Deliverable &amp; Timeline</h2>
-            <p>A single PDF report covering all findings with severity ratings, PoC evidence, and actionable remediation guidance. Delivered within a month of scope confirmation and written authorization.</p>
+            <div class="terminal-header" style="margin-bottom: 1rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem;">
+                <span class="subtitle_mono" style="color: #666;">$ cat resume.tex</span>
+            </div>
+            <pre><code class="language-latex">
+\documentclass[11pt, a4paper]{article}
+\usepackage[margin=0.85in]{geometry}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{parskip}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{booktabs}
+\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
+\begin{document}
+\begin{center}
+    {\LARGE \textbf{Snehil Shourya}} \\[4pt]
+    {\normalsize Penetration Tester \quad|\quad Security Researcher \quad|\quad Bug Bounty Hunter} \\[2pt]
+\end{center}
+\vspace{4pt}
+\section{Engagement Overview}
+This document outlines the methodology, tooling, and deliverables I apply during web application vulnerability assessments. It is provided as a reference for the proposed engagement on \textbf{complymarket.cloud} (Azure Kubernetes Service).
+\section{Methodology}
+\subsection{Phase 1 — Reconnaissance}
+\begin{itemize}[leftmargin=*, itemsep=2pt]
+    \item Passive fingerprinting: HTTP headers, TLS configuration, server banners
+    \item Subdomain and endpoint enumeration via Amass, Subfinder, and ffuf
+    \item JavaScript file analysis for exposed API keys, endpoints, and secrets
+    \item External AKS surface review: publicly exposed services, ingress rules, and misconfigured endpoints
+\end{itemize}
+\subsection{Phase 2 — Vulnerability Assessment}
+\begin{itemize}[leftmargin=*, itemsep=2pt]
+    \item Manual web application testing across the full OWASP Top 10
+    \item Authentication and session management analysis
+    \item Broken access control and IDOR testing
+    \item SQL Injection and XSS — manual verification, not scanner-only
+    \item API endpoint enumeration and security misconfiguration review
+    \item Container and Kubernetes misconfiguration review using Trivy (external surface only, as scoped)
+    \item Automated surface coverage via Nuclei and Burp Suite Pro active scan
+\end{itemize}
+\subsection{Phase 3 — Reporting}
+\begin{itemize}[leftmargin=*, itemsep=2pt]
+    \item All findings rated by CVSS v3.1 severity: Critical / High / Medium / Low
+    \item Each finding includes: description, proof of concept, business impact, remediation steps
+    \item Report written for both technical and non-technical stakeholders
+    \item Delivered as a clean PDF within the agreed timeline
+\end{itemize}
+\section{Tooling}
+\begin{itemize}[leftmargin=*, itemsep=2pt]
+    \item \textbf{Web Application:} Burp Suite Professional, OWASP ZAP
+    \item \textbf{Recon \& Enumeration:} Amass, Subfinder, ffuf, Gobuster, Shodan
+    \item \textbf{Scanning:} Nuclei, Nmap, Nikto, Nessus
+    \item \textbf{Exploitation:} Metasploit, SQLMap (manual verification always applied)
+    \item \textbf{Cloud:} Trivy (container/AKS misconfiguration), Cloudsploit
+    \item \textbf{Scripting:} Python, Bash for custom automation
+\end{itemize}
+\section{Credentials \& Recognition}
+\begin{itemize}[leftmargin=*, itemsep=2pt]
+    \item \textbf{Google Hall of Fame (2025):} Identified a persistent access logic bug in Android 14 -- bounty awarded
+    \item \textbf{Apple Hall of Fame (Jan 2025):} Acknowledged for responsible disclosure of critical vulnerabilities
+    \item \textbf{NCIIPC (Apr 2025):} Reported a data leak exposing PII of 12,000+ users to India's national cyber agency
+    \item \textbf{Certifications:} eJPT, CAP, PT1 (Junior Pentester), HTB CPTS Path Completed
+    \item \textbf{HTB Pro Labs:} Dante \& POO -- verified enterprise AD lab completions
+\end{itemize}
+\section{Deliverable \& Timeline}
+A single PDF report covering all findings with severity ratings, PoC evidence, and actionable remediation guidance. Delivered within a month of scope confirmation and written authorization.
+\end{document}
+            </code></pre>
         </div>
     </main>
 
@@ -144,6 +122,9 @@
         <p class="subtitle_mono">&gt; EOF Snehil Shourya © 2026. Built with Express & Vanilla JS.</p>
     </footer>
 
+    <!-- Highlight.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
     <!-- Custom JS -->
     <script src="js/utils.js"></script>
 </body>
