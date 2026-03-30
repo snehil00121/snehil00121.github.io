@@ -3,310 +3,339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snehil Shourya | Security Portfolio</title>
+    <title>Snehil Shourya | Security Resume</title>
     
-    <!-- Fonts: Inter and JetBrains Mono -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
     
     <style>
-        :root {
-            --bg-dark: #0a0a0a;
-            --bg-card: #141414;
-            --text-main: #e2e8f0;
-            --text-muted: #94a3b8;
-            --accent-green: #00ff41;  /* Terminal green */
-            --accent-cyan: #00f3ff;   /* Cyber cyan */
-            --border-color: #222;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        /* Container */
-        .container {
+        .resume-container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 2rem 1.5rem;
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            padding: 3rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
         }
 
-        /* Typography */
-        h1, h2, h3, h4 {
+        .resume-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+            padding-bottom: 1.5rem;
+        }
+
+        .resume-header h1 {
+            font-size: 2.5rem;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .resume-header .subtitle {
+            font-family: var(--font-mono);
+            color: var(--accent-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .resume-header .contact-info {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .resume-header .contact-info a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        .resume-header .contact-info a:hover {
+            color: var(--accent-primary);
+        }
+
+        .resume-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .resume-section h2 {
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-family: var(--font-mono);
+            text-transform: uppercase;
+        }
+
+        .resume-item {
+            margin-bottom: 1.8rem;
+        }
+
+        .resume-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.2rem;
+            flex-wrap: wrap;
+        }
+
+        .resume-item-title {
+            font-size: 1.2rem;
             color: var(--text-main);
             font-weight: 600;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            letter-spacing: -1px;
-            margin-bottom: 0.5rem;
-            text-align: center;
-        }
-
-        h2 {
-            font-size: 1.75rem;
-            margin-top: 2.5rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--accent-cyan);
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        h3 {
-            font-size: 1.2rem;
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--accent-green);
-        }
-
-        p {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-        }
-
-        strong {
-            color: var(--text-main);
-        }
-
-        /* Header */
-        header {
-            padding: 2rem 0 3rem;
-            border-bottom: 1px dashed var(--border-color);
-        }
-
-        .subtitle {
-            font-family: 'JetBrains Mono', monospace;
-            color: var(--accent-green);
+        .resume-item-date {
+            color: var(--accent-secondary);
+            font-family: var(--font-mono);
             font-size: 0.9rem;
+        }
+
+        .resume-item-subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 0.5rem;
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            justify-content: space-between;
+        }
+        
+        .resume-item-location {
+            font-style: normal;
+            font-size: 0.9rem;
         }
 
-        .subtitle span::before {
-            content: '>';
-            margin-right: 0.5rem;
-            opacity: 0.7;
-        }
-
-        /* Lists */
-        ul {
-            list-style-type: none;
+        ul.resume-list {
+            list-style: none;
             padding-left: 0;
+            margin-top: 0.5rem;
         }
 
-        li {
+        ul.resume-list li {
             position: relative;
             padding-left: 1.5rem;
-            margin-bottom: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        li::before {
-            content: '▹';
-            position: absolute;
-            left: 0;
-            color: var(--accent-cyan);
-        }
-
-        /* Grids and Cards */
-        .grid-section {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.5rem;
-        }
-
-        @media (min-width: 768px) {
-            .grid-section {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1.5rem;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-            border-color: var(--accent-cyan);
-        }
-
-        .card h4 {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
-            color: var(--text-main);
             margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .card h4::before {
-            content: '';
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-green);
-            border-radius: 50%;
-        }
-
-        .card p {
-            margin-bottom: 0;
+            color: var(--text-main);
             font-size: 0.95rem;
         }
 
-        /* Specific Lists */
-        .tooling-list li {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 1rem 1rem 1rem 2.5rem;
-            border-radius: 6px;
-            margin-bottom: 0.5rem;
-            transition: border-color 0.2s;
+        ul.resume-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-primary);
+        }
+
+        .skills-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .skills-list li {
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .skills-list strong {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+
+        .achievement-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
         }
         
-        .tooling-list li:hover {
-            border-color: var(--accent-cyan);
+        .achievement-list li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-secondary);
         }
-
-        .tooling-list li::before {
-            top: 1rem;
-            left: 1rem;
+        
+        .achievement-list strong {
+            color: var(--text-main);
+            font-weight: 600;
         }
-
-        /* Navigation helper */
-        .back-link {
-            display: inline-block;
-            margin-bottom: 1rem;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-        .back-link:hover {
-            color: var(--accent-cyan);
-        }
-        .back-link::before {
-            content: '< ';
-        }
-
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Optional Back Link if part of the site -->
-        <a href="index.html" class="back-link">cd ..</a>
+    <div id="cursor-glow"></div>
+    
+    <nav class="navbar glass">
+        <div class="logo">
+            <span class="glitch" data-text="Terminal">Terminal</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">&lt; Back to Dashboard</a></li>
+        </ul>
+    </nav>
 
-        <header>
-            <h1>Snehil Shourya</h1>
-            <div class="subtitle">
-                <span>Penetration Tester</span>
-                <span>Security Researcher</span>
-                <span>Bug Bounty Hunter</span>
-            </div>
-        </header>
-
-        <section>
-            <h2>01. Engagement Overview</h2>
-            <p>This document outlines the methodology, tooling, and deliverables I apply during web application vulnerability assessments. It is provided as a reference for the proposed engagement on <strong>complymarket.cloud</strong> (Azure Kubernetes Service).</p>
-        </section>
-
-        <section>
-            <h2>02. Methodology</h2>
+    <main style="padding-top: 120px; min-height: 80vh; padding-bottom: 50px;">
+        <div class="resume-container">
             
-            <div class="methodology-phases">
-                <h3>Phase 1 — Reconnaissance</h3>
-                <ul>
-                    <li>Passive fingerprinting: HTTP headers, TLS configuration, server banners</li>
-                    <li>Subdomain and endpoint enumeration via Amass, Subfinder, and ffuf</li>
-                    <li>JavaScript file analysis for exposed API keys, endpoints, and secrets</li>
-                    <li>External AKS surface review: publicly exposed services, ingress rules, and misconfigured endpoints</li>
-                </ul>
-
-                <h3>Phase 2 — Vulnerability Assessment</h3>
-                <ul>
-                    <li>Manual web application testing across the full OWASP Top 10</li>
-                    <li>Authentication and session management analysis</li>
-                    <li>Broken access control and IDOR testing</li>
-                    <li>SQL Injection and XSS — manual verification, not scanner-only</li>
-                    <li>API endpoint enumeration and security misconfiguration review</li>
-                    <li>Container and Kubernetes misconfiguration review using Trivy (external surface only, as scoped)</li>
-                    <li>Automated surface coverage via Nuclei and Burp Suite Pro active scan</li>
-                </ul>
-
-                <h3>Phase 3 — Reporting</h3>
-                <ul>
-                    <li>All findings rated by CVSS v3.1 severity: Critical / High / Medium / Low</li>
-                    <li>Each finding includes: description, proof of concept, business impact, remediation steps</li>
-                    <li>Report written for both technical and non-technical stakeholders</li>
-                    <li>Delivered as a clean PDF within the agreed timeline</li>
-                </ul>
-            </div>
-        </section>
-
-        <section>
-            <h2>03. Tooling</h2>
-            <ul class="tooling-list">
-                <li><strong>Web Application:</strong> Burp Suite Professional, OWASP ZAP</li>
-                <li><strong>Recon & Enumeration:</strong> Amass, Subfinder, ffuf, Gobuster, Shodan</li>
-                <li><strong>Scanning:</strong> Nuclei, Nmap, Nikto, Nessus</li>
-                <li><strong>Exploitation:</strong> Metasploit, SQLMap (manual verification always applied)</li>
-                <li><strong>Cloud:</strong> Trivy (container/AKS misconfiguration), Cloudsploit</li>
-                <li><strong>Scripting:</strong> Python, Bash for custom automation</li>
-            </ul>
-        </section>
-
-        <section>
-            <h2>04. Credentials & Recognition</h2>
-            <div class="grid-section">
-                <div class="card">
-                    <h4>Google Hall of Fame (2025)</h4>
-                    <p>Identified a persistent access logic bug in Android 14 -- bounty awarded.</p>
-                </div>
-                <div class="card">
-                    <h4>Apple Hall of Fame (Jan 2025)</h4>
-                    <p>Acknowledged for responsible disclosure of critical vulnerabilities.</p>
-                </div>
-                <div class="card">
-                    <h4>NCIIPC (Apr 2025)</h4>
-                    <p>Reported a data leak exposing PII of 12,000+ users to India's national cyber agency.</p>
-                </div>
-                <div class="card">
-                    <h4>Certifications</h4>
-                    <p>eJPT, CAP, PT1 (Junior Pentester), HTB CPTS Path Completed.</p>
-                </div>
-                <div class="card">
-                    <h4>HTB Pro Labs</h4>
-                    <p>Dante & POO -- verified enterprise AD lab completions.</p>
+            <div class="resume-header">
+                <h1>Snehil Shourya</h1>
+                <div class="subtitle">Security Researcher | Pentester</div>
+                <div class="contact-info">
+                    <span>+91 6206489020</span>
+                    <span>|</span>
+                    <a href="mailto:snehilshourya2913@gmail.com">snehilshourya2913@gmail.com</a>
+                    <span>|</span>
+                    <a href="https://www.linkedin.com/in/snehilshourya101/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <span>|</span>
+                    <a href="https://github.com/snehil00121/" target="_blank" rel="noopener noreferrer">GitHub</a>
+                    <span>|</span>
+                    <a href="https://mrtom001.medium.com/" target="_blank" rel="noopener noreferrer">Medium</a>
                 </div>
             </div>
-        </section>
 
-        <section>
-            <h2>05. Deliverable & Timeline</h2>
-            <p>A single PDF report covering all findings with severity ratings, PoC evidence, and actionable remediation guidance. Delivered within a month of scope confirmation and written authorization.</p>
-        </section>
-        
-        <footer style="margin-top: 4rem; text-align: center; border-top: 1px dashed var(--border-color); padding-top: 2rem;">
-            <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-muted);">EOF</p>
-        </footer>
-    </div>
+            <div class="resume-section">
+                <h2>Security Achievements &amp; Hall of Fame</h2>
+                <ul class="achievement-list" style="list-style: none; padding-left: 0;">
+                    <li><strong>Apple Hall of Fame (01/2025):</strong> Officially acknowledged for identifying critical security vulnerabilities.</li>
+                    <li><strong>Google Hall of Fame (08/2025):</strong> Acknowledged for discovering an RCE in cloud infrastructure and a valid logic bug in Android 14.</li>
+                    <li><strong>NCIIPC Acknowledgement (04/2025):</strong> Recognized for reporting a data leak exposing PII of 12,000+ users.</li>
+                    <li><strong>Google Bug Bounty:</strong> Awarded bounty for identifying a persistent access flaw in Android 14 ADB authorization.</li>
+                </ul>
+            </div>
+
+            <div class="resume-section">
+                <h2>Education</h2>
+                
+                <div class="resume-item">
+                    <div class="resume-item-header">
+                        <span class="resume-item-title">Vellore Institute of Technology (VIT)</span>
+                        <span class="resume-item-date">2023– 2027 (Expected)</span>
+                    </div>
+                    <div class="resume-item-subtitle">
+                        <span>B.Tech in Computer Science (Cyber Security Specialization)</span>
+                        <span class="resume-item-location">Bhopal, India</span>
+                    </div>
+                    <p style="font-size: 0.95rem; margin-top: 0.5rem; color: var(--text-muted);"><strong>Relevant Coursework:</strong> Network Security, Cryptography, Linux Administration, C/C++ Programming.</p>
+                </div>
+
+                <div class="resume-item">
+                    <div class="resume-item-header">
+                        <span class="resume-item-title">DPS Bokaro</span>
+                        <span class="resume-item-date">2021– 2023</span>
+                    </div>
+                    <div class="resume-item-subtitle">
+                        <span>Higher Secondary School</span>
+                        <span class="resume-item-location">Jharkhand, India</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h2>Technical Skills</h2>
+                <ul class="skills-list">
+                    <li><strong>Network Security:</strong> Active Directory (BloodHound, Mimikatz), Nmap, Masscan, Wireshark, Bash Scripting</li>
+                    <li><strong>Web Security:</strong> Burp Suite Professional, OWASP Top 10, IDOR, SQL Injection, XSS, API Pentesting</li>
+                    <li><strong>Tools &amp; OS:</strong> Nessus (Vulnerability Assessment), Metasploit, Docker, Kali Linux, Windows (WSL)</li>
+                    <li><strong>Languages:</strong> Python (Automation), C/C++, HTML/CSS, JavaScript, SQL</li>
+                    <li><strong>Certifications:</strong> eJPT, CAP (Certified AppSec Practitioner), PT1 (Junior Pentester), HTB CPTS Path (Completed)</li>
+                </ul>
+            </div>
+
+            <div class="resume-section">
+                <h2>Vulnerability Research &amp; Case Studies</h2>
+                
+                <div class="resume-item">
+                    <div class="resume-item-header">
+                        <span class="resume-item-title">Android 14 ADB Persistence Logic Flaw | Google VRP</span>
+                        <span class="resume-item-date">Jan 2025</span>
+                    </div>
+                    <ul class="resume-list">
+                        <li>Discovered an architectural flaw in Android 14 where the "Forget Device" UI failed to revoke the underlying RSA keys.</li>
+                        <li>Demonstrated how an attacker could maintain persistent, invisible shell access (Ghost Shell) despite user revocation.</li>
+                        <li>Provided detailed Root Cause Analysis (RCA) of the AOSP adbd service which led to Google reversing their initial "Won't Fix" decision and awarding a bounty.</li>
+                    </ul>
+                </div>
+
+                <div class="resume-item">
+                    <div class="resume-item-header">
+                        <span class="resume-item-title">Cloud Infrastructure RCE | Multiple Different Country</span>
+                        <span class="resume-item-date">Dec 2024</span>
+                    </div>
+                    <ul class="resume-list">
+                        <li>Identified and exploited a Remote Code Execution (RCE) vulnerability in a multi-tenant cloud environment.</li>
+                        <li>chained a serialization flaw with weak access controls to gain initial foothold and escalate privileges.</li>
+                        <li>Reported the vulnerability with a comprehensive Proof of Concept (PoC) script, leading to an immediate patch.</li>
+                    </ul>
+                </div>
+
+                <div class="resume-item">
+                    <div class="resume-item-header">
+                        <span class="resume-item-title">Active Directory Attack Simulation | Home Lab</span>
+                        <span class="resume-item-date">Nov 2024</span>
+                    </div>
+                    <ul class="resume-list">
+                        <li>Simulated a complete AD forest compromise using BloodHound to map attack paths.</li>
+                        <li>Executed Kerberoasting and Golden Ticket attacks using Impacket and Mimikatz to understand TTPs.</li>
+                        <li>Practiced lateral movement and domain dominance techniques in a controlled environment.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h2>Leadership &amp; Community</h2>
+                
+                <div class="resume-item">
+                    <div class="resume-item-header">
+                        <span class="resume-item-title">OWASP Club VIT Bhopal</span>
+                        <span class="resume-item-date">Aug 2024– Present</span>
+                    </div>
+                    <div class="resume-item-subtitle">
+                        <span>CTF Developer</span>
+                        <span class="resume-item-location">Bhopal, India</span>
+                    </div>
+                    <ul class="resume-list">
+                        <li>Designed and deployed web and binary exploitation challenges for university-level CTF competitions.</li>
+                        <li>Mentored junior students on vulnerability assessment tools like Burp Suite and Nmap.</li>
+                    </ul>
+                </div>
+
+                <div class="resume-item">
+                    <div class="resume-item-header">
+                        <span class="resume-item-title">Null Club VIT Bhopal</span>
+                        <span class="resume-item-date">Jan 2024– Present</span>
+                    </div>
+                    <div class="resume-item-subtitle">
+                        <span>Linux Course Developer</span>
+                        <span class="resume-item-location">Bhopal, India</span>
+                    </div>
+                    <ul class="resume-list">
+                        <li>Curated a comprehensive Linux curriculum focusing on command-line proficiency for security professionals.</li>
+                        <li>Conducted workshops on Bash scripting and system administration for 100+ students.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <p class="subtitle_mono">&gt; EOF Snehil Shourya © 2026. Built with Express & Vanilla JS.</p>
+    </footer>
+
+    <!-- Custom JS -->
+    <script src="js/utils.js"></script>
 </body>
 </html>

@@ -1,5 +1,51 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    // === 0. Hacker Boot Sequence ===
+    const bootContainer = document.getElementById('hacker-boot');
+    if (bootContainer) {
+        const sequence = [
+            "> Establishing secure connection...",
+            "> Bypassing WAF rulesets...",
+            "> Extracting vulnerability signatures...",
+            "> Payload delivered. Root access granted."
+        ];
+        
+        bootContainer.innerHTML = ''; // Clear fallback text
+        
+        async function typeLine(text) {
+            const p = document.createElement('p');
+            p.style.margin = '0';
+            p.style.color = 'var(--accent-secondary)'; 
+            p.style.opacity = '0.8';
+            bootContainer.appendChild(p);
+            
+            for (let i = 0; i < text.length; i++) {
+                p.textContent += text[i];
+                // Random typing speed delay
+                await new Promise(r => setTimeout(r, 15 + Math.random() * 35));
+            }
+        }
+        
+        async function runBoot() {
+            for (let i = 0; i < sequence.length; i++) {
+                await typeLine(sequence[i]);
+                await new Promise(r => setTimeout(r, 400)); // Sleep between lines
+            }
+            
+            // Add a permanent blinking cursor to the last line
+            const lastP = bootContainer.lastElementChild;
+            if (lastP) {
+                const cursor = document.createElement('span');
+                cursor.className = 'blink';
+                cursor.textContent = '_';
+                lastP.appendChild(cursor);
+            }
+        }
+        
+        // Start sequence after a small initial delay
+        setTimeout(runBoot, 400);
+    }
+
     // === 1. Setup GSAP Scroll Reveal ===
     gsap.registerPlugin(ScrollTrigger);
 
