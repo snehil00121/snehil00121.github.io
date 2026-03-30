@@ -3,129 +3,310 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snehil Shourya | Resume</title>
+    <title>Snehil Shourya | Security Portfolio</title>
     
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Fonts: Inter and JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- Highlight.js for Code blocks -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
     <style>
-        .resume-container {
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #141414;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent-green: #00ff41;  /* Terminal green */
+            --accent-cyan: #00f3ff;   /* Cyber cyan */
+            --border-color: #222;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* Container */
+        .container {
             max-width: 900px;
             margin: 0 auto;
-            color: var(--text-main);
-            font-family: var(--font-mono);
-            line-height: 1.5;
-            padding: 2rem;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 8px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            padding: 2rem 1.5rem;
         }
-        .hljs {
-            background: transparent !important;
-            padding: 0;
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            letter-spacing: -1px;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--accent-cyan);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-green);
+        }
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+
+        strong {
+            color: var(--text-main);
+        }
+
+        /* Header */
+        header {
+            padding: 2rem 0 3rem;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .subtitle {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-green);
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .subtitle span::before {
+            content: '>';
+            margin-right: 0.5rem;
+            opacity: 0.7;
+        }
+
+        /* Lists */
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+        }
+
+        /* Grids and Cards */
+        .grid-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid-section {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-cyan);
+        }
+
+        .card h4 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h4::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+        }
+
+        .card p {
+            margin-bottom: 0;
             font-size: 0.95rem;
         }
+
+        /* Specific Lists */
+        .tooling-list li {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            padding: 1rem 1rem 1rem 2.5rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            transition: border-color 0.2s;
+        }
+        
+        .tooling-list li:hover {
+            border-color: var(--accent-cyan);
+        }
+
+        .tooling-list li::before {
+            top: 1rem;
+            left: 1rem;
+        }
+
+        /* Navigation helper */
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: var(--accent-cyan);
+        }
+        .back-link::before {
+            content: '< ';
+        }
+
     </style>
 </head>
 <body>
-    <div id="cursor-glow"></div>
-    
-    <nav class="navbar glass">
-        <div class="logo">
-            <span class="glitch" data-text="Terminal">Terminal</span>
-        </div>
-        <ul class="nav-links">
-            <li><a href="index.html" class="active">&lt; Back to Dashboard</a></li>
-        </ul>
-    </nav>
+    <div class="container">
+        <!-- Optional Back Link if part of the site -->
+        <a href="index.html" class="back-link">cd ..</a>
 
-    <main style="padding-top: 120px; min-height: 80vh; padding-bottom: 50px;">
-        <div class="resume-container">
-            <div class="terminal-header" style="margin-bottom: 1rem; border-bottom: 1px solid #333; padding-bottom: 0.5rem;">
-                <span class="subtitle_mono" style="color: #666;">$ cat resume.tex</span>
+        <header>
+            <h1>Snehil Shourya</h1>
+            <div class="subtitle">
+                <span>Penetration Tester</span>
+                <span>Security Researcher</span>
+                <span>Bug Bounty Hunter</span>
             </div>
-            <pre><code class="language-latex">
-\documentclass[11pt, a4paper]{article}
-\usepackage[margin=0.85in]{geometry}
-\usepackage{titlesec}
-\usepackage{enumitem}
-\usepackage{parskip}
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage{booktabs}
-\titleformat{\section}{\large\bfseries}{}{0em}{}[\titlerule]
-\titleformat{\subsection}{\normalsize\bfseries}{}{0em}{}
-\begin{document}
-\begin{center}
-    {\LARGE \textbf{Snehil Shourya}} \\[4pt]
-    {\normalsize Penetration Tester \quad|\quad Security Researcher \quad|\quad Bug Bounty Hunter} \\[2pt]
-\end{center}
-\vspace{4pt}
-\section{Engagement Overview}
-This document outlines the methodology, tooling, and deliverables I apply during web application vulnerability assessments. It is provided as a reference for the proposed engagement on \textbf{complymarket.cloud} (Azure Kubernetes Service).
-\section{Methodology}
-\subsection{Phase 1 — Reconnaissance}
-\begin{itemize}[leftmargin=*, itemsep=2pt]
-    \item Passive fingerprinting: HTTP headers, TLS configuration, server banners
-    \item Subdomain and endpoint enumeration via Amass, Subfinder, and ffuf
-    \item JavaScript file analysis for exposed API keys, endpoints, and secrets
-    \item External AKS surface review: publicly exposed services, ingress rules, and misconfigured endpoints
-\end{itemize}
-\subsection{Phase 2 — Vulnerability Assessment}
-\begin{itemize}[leftmargin=*, itemsep=2pt]
-    \item Manual web application testing across the full OWASP Top 10
-    \item Authentication and session management analysis
-    \item Broken access control and IDOR testing
-    \item SQL Injection and XSS — manual verification, not scanner-only
-    \item API endpoint enumeration and security misconfiguration review
-    \item Container and Kubernetes misconfiguration review using Trivy (external surface only, as scoped)
-    \item Automated surface coverage via Nuclei and Burp Suite Pro active scan
-\end{itemize}
-\subsection{Phase 3 — Reporting}
-\begin{itemize}[leftmargin=*, itemsep=2pt]
-    \item All findings rated by CVSS v3.1 severity: Critical / High / Medium / Low
-    \item Each finding includes: description, proof of concept, business impact, remediation steps
-    \item Report written for both technical and non-technical stakeholders
-    \item Delivered as a clean PDF within the agreed timeline
-\end{itemize}
-\section{Tooling}
-\begin{itemize}[leftmargin=*, itemsep=2pt]
-    \item \textbf{Web Application:} Burp Suite Professional, OWASP ZAP
-    \item \textbf{Recon \& Enumeration:} Amass, Subfinder, ffuf, Gobuster, Shodan
-    \item \textbf{Scanning:} Nuclei, Nmap, Nikto, Nessus
-    \item \textbf{Exploitation:} Metasploit, SQLMap (manual verification always applied)
-    \item \textbf{Cloud:} Trivy (container/AKS misconfiguration), Cloudsploit
-    \item \textbf{Scripting:} Python, Bash for custom automation
-\end{itemize}
-\section{Credentials \& Recognition}
-\begin{itemize}[leftmargin=*, itemsep=2pt]
-    \item \textbf{Google Hall of Fame (2025):} Identified a persistent access logic bug in Android 14 -- bounty awarded
-    \item \textbf{Apple Hall of Fame (Jan 2025):} Acknowledged for responsible disclosure of critical vulnerabilities
-    \item \textbf{NCIIPC (Apr 2025):} Reported a data leak exposing PII of 12,000+ users to India's national cyber agency
-    \item \textbf{Certifications:} eJPT, CAP, PT1 (Junior Pentester), HTB CPTS Path Completed
-    \item \textbf{HTB Pro Labs:} Dante \& POO -- verified enterprise AD lab completions
-\end{itemize}
-\section{Deliverable \& Timeline}
-A single PDF report covering all findings with severity ratings, PoC evidence, and actionable remediation guidance. Delivered within a month of scope confirmation and written authorization.
-\end{document}
-            </code></pre>
-        </div>
-    </main>
+        </header>
 
-    <footer>
-        <p class="subtitle_mono">&gt; EOF Snehil Shourya © 2026. Built with Express & Vanilla JS.</p>
-    </footer>
+        <section>
+            <h2>01. Engagement Overview</h2>
+            <p>This document outlines the methodology, tooling, and deliverables I apply during web application vulnerability assessments. It is provided as a reference for the proposed engagement on <strong>complymarket.cloud</strong> (Azure Kubernetes Service).</p>
+        </section>
 
-    <!-- Highlight.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-    <script>hljs.highlightAll();</script>
-    <!-- Custom JS -->
-    <script src="js/utils.js"></script>
+        <section>
+            <h2>02. Methodology</h2>
+            
+            <div class="methodology-phases">
+                <h3>Phase 1 — Reconnaissance</h3>
+                <ul>
+                    <li>Passive fingerprinting: HTTP headers, TLS configuration, server banners</li>
+                    <li>Subdomain and endpoint enumeration via Amass, Subfinder, and ffuf</li>
+                    <li>JavaScript file analysis for exposed API keys, endpoints, and secrets</li>
+                    <li>External AKS surface review: publicly exposed services, ingress rules, and misconfigured endpoints</li>
+                </ul>
+
+                <h3>Phase 2 — Vulnerability Assessment</h3>
+                <ul>
+                    <li>Manual web application testing across the full OWASP Top 10</li>
+                    <li>Authentication and session management analysis</li>
+                    <li>Broken access control and IDOR testing</li>
+                    <li>SQL Injection and XSS — manual verification, not scanner-only</li>
+                    <li>API endpoint enumeration and security misconfiguration review</li>
+                    <li>Container and Kubernetes misconfiguration review using Trivy (external surface only, as scoped)</li>
+                    <li>Automated surface coverage via Nuclei and Burp Suite Pro active scan</li>
+                </ul>
+
+                <h3>Phase 3 — Reporting</h3>
+                <ul>
+                    <li>All findings rated by CVSS v3.1 severity: Critical / High / Medium / Low</li>
+                    <li>Each finding includes: description, proof of concept, business impact, remediation steps</li>
+                    <li>Report written for both technical and non-technical stakeholders</li>
+                    <li>Delivered as a clean PDF within the agreed timeline</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>03. Tooling</h2>
+            <ul class="tooling-list">
+                <li><strong>Web Application:</strong> Burp Suite Professional, OWASP ZAP</li>
+                <li><strong>Recon & Enumeration:</strong> Amass, Subfinder, ffuf, Gobuster, Shodan</li>
+                <li><strong>Scanning:</strong> Nuclei, Nmap, Nikto, Nessus</li>
+                <li><strong>Exploitation:</strong> Metasploit, SQLMap (manual verification always applied)</li>
+                <li><strong>Cloud:</strong> Trivy (container/AKS misconfiguration), Cloudsploit</li>
+                <li><strong>Scripting:</strong> Python, Bash for custom automation</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>04. Credentials & Recognition</h2>
+            <div class="grid-section">
+                <div class="card">
+                    <h4>Google Hall of Fame (2025)</h4>
+                    <p>Identified a persistent access logic bug in Android 14 -- bounty awarded.</p>
+                </div>
+                <div class="card">
+                    <h4>Apple Hall of Fame (Jan 2025)</h4>
+                    <p>Acknowledged for responsible disclosure of critical vulnerabilities.</p>
+                </div>
+                <div class="card">
+                    <h4>NCIIPC (Apr 2025)</h4>
+                    <p>Reported a data leak exposing PII of 12,000+ users to India's national cyber agency.</p>
+                </div>
+                <div class="card">
+                    <h4>Certifications</h4>
+                    <p>eJPT, CAP, PT1 (Junior Pentester), HTB CPTS Path Completed.</p>
+                </div>
+                <div class="card">
+                    <h4>HTB Pro Labs</h4>
+                    <p>Dante & POO -- verified enterprise AD lab completions.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>05. Deliverable & Timeline</h2>
+            <p>A single PDF report covering all findings with severity ratings, PoC evidence, and actionable remediation guidance. Delivered within a month of scope confirmation and written authorization.</p>
+        </section>
+        
+        <footer style="margin-top: 4rem; text-align: center; border-top: 1px dashed var(--border-color); padding-top: 2rem;">
+            <p style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--text-muted);">EOF</p>
+        </footer>
+    </div>
 </body>
 </html>
