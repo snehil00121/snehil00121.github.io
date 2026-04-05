@@ -35,6 +35,47 @@ document.addEventListener('DOMContentLoaded', () => {
             contentBox.querySelectorAll('pre code').forEach((block) => {
                 hljs.highlightElement(block);
             });
+
+            // Generate Table of Contents dynamically
+            const headings = contentBox.querySelectorAll('h2, h3, h4');
+            const tocSidebar = document.getElementById('toc-sidebar');
+            
+            if (headings.length > 0 && tocSidebar) {
+                let tocHTML = '<div class="toc-title">&gt; Table of Contents</div><ul class="toc-list">';
+                let headingCounts = {};
+                
+                headings.forEach((h) => {
+                    // Ignore error messages
+                    if (h.innerText.includes('> Error:')) return;
+                    
+                    let idText = h.innerText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+                    if (!idText) idText = 'section';
+                    
+                    if (headingCounts[idText]) {
+                        headingCounts[idText]++;
+                        idText = `${idText}-${headingCounts[idText]}`;
+                    } else {
+                        headingCounts[idText] = 1;
+                    }
+                    
+                    if (!h.id) {
+                        h.id = idText;
+                    }
+                    
+                    let padding = '';
+                    if (h.tagName.toLowerCase() === 'h3') padding = 'style="padding-left: 1rem;"';
+                    else if (h.tagName.toLowerCase() === 'h4') padding = 'style="padding-left: 2rem;"';
+                    
+                    tocHTML += `<li ${padding}><a href="#${h.id}">${h.innerText}</a></li>`;
+                });
+                tocHTML += '</ul>';
+                tocSidebar.innerHTML = tocHTML;
+            } else if (tocSidebar) {
+                // Hide sidebar if no headings
+                tocSidebar.style.display = 'none';
+                const layout = document.querySelector('.writeup-layout');
+                if (layout) layout.style.gridTemplateColumns = '1fr';
+            }
         })
         .catch(err => {
             console.error(err);

@@ -28,10 +28,19 @@
 
     <main style="padding-top: 120px; min-height: 80vh;">
         <section class="section">
-            <div class="container glass" style="padding: 3rem; position: relative;">
-                <div id="writeup-content" class="markdown-body">
-                    <p class="subtitle_mono blink">&gt; Fetching remote file...</p>
-                </div>
+            <div class="container writeup-layout">
+                <!-- Main Content -->
+                <article class="glass" style="padding: 3rem; position: relative;">
+                    <div id="writeup-content" class="markdown-body">
+                        <p class="subtitle_mono blink">&gt; Fetching remote file...</p>
+                    </div>
+                </article>
+                
+                <!-- Table of Contents Sidebar -->
+                <aside id="toc-sidebar" class="toc-sidebar glass">
+                    <div class="toc-title">&gt; Table of Contents</div>
+                    <!-- Dynamically populated ToC will go here -->
+                </aside>
             </div>
         </section>
     </main>
