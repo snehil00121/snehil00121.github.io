@@ -9,53 +9,93 @@ let MOUSE = { x: -9999, y: -9999, on: false };
 window.addEventListener('mousemove', (e) => { MOUSE.x = e.clientX; MOUSE.y = e.clientY; MOUSE.on = true; });
 window.addEventListener('mouseout', () => { MOUSE.on = false; });
 
-/* ---- shared tendril renderer ----
-   Draws one writhing, tapering, glowing symbiote strand. */
+/* ---- shared tentacle renderer ----
+   Draws one writhing symbiote tentacle: a filled body thick at the
+   rooted base, tapering to a fine tip, with a glowing wet rim. */
 function drawTendril(ctx, t, o) {
-    // o: {x,y, angle, segs, segLen, bend, phase, speed, grow(0..1), reach}
+    // o: {x,y, angle, segs, segLen, bend, phase, speed, grow(0..1), reach, width(=base half-width)}
     const segs = o.segs;
     let x = o.x, y = o.y, dir = o.angle;
-    const maxSeg = Math.max(1, Math.floor(segs * (o.grow == null ? 1 : o.grow)));
+    const maxSeg = Math.max(2, Math.floor(segs * (o.grow == null ? 1 : o.grow)));
     const pts = [[x, y]];
     for (let i = 0; i < maxSeg; i++) {
         dir += Math.sin(t * o.speed + i * 0.55 + o.phase) * o.bend;
-        // reach toward cursor near the strand
         if (o.reach && MOUSE.on) {
             const dx = MOUSE.x - x, dy = MOUSE.y - y, d = Math.hypot(dx, dy);
-            if (d < 260) { dir += (Math.atan2(dy, dx) - dir) * 0.06 * (1 - d / 260); }
+            if (d < 280) { dir += (Math.atan2(dy, dx) - dir) * 0.06 * (1 - d / 280); }
         }
         const taper = 1 - i / segs;
-        x += Math.cos(dir) * o.segLen * (0.7 + 0.3 * taper);
-        y += Math.sin(dir) * o.segLen * (0.7 + 0.3 * taper);
+        x += Math.cos(dir) * o.segLen * (0.72 + 0.28 * taper);
+        y += Math.sin(dir) * o.segLen * (0.72 + 0.28 * taper);
         pts.push([x, y]);
     }
-    // dark body (wide, tapered)
-    for (let i = 1; i < pts.length; i++) {
-        const taper = 1 - (i - 1) / segs;
-        ctx.beginPath();
-        ctx.moveTo(pts[i - 1][0], pts[i - 1][1]);
-        ctx.lineTo(pts[i][0], pts[i][1]);
-        ctx.lineCap = 'round';
-        ctx.lineWidth = Math.max(0.5, o.width * taper);
-        ctx.strokeStyle = `rgba(6,9,18,${0.85 * taper})`;
-        ctx.stroke();
+    const n = pts.length;
+    if (n < 2) return pts;
+
+    const base = o.width || 8;   // half-width at the root
+    // half-width per point: thick at base, keeps body, tapers to a point
+    const hw = new Array(n);
+    for (let i = 0; i < n; i++) {
+        const u = i / (n - 1);
+        hw[i] = Math.max(0.35, base * Math.pow(1 - u, 0.68) * (0.85 + 0.15 * Math.sin(u * 7 + o.phase)));
     }
-    // bright rim (thin, glowing)
-    ctx.save();
-    ctx.shadowColor = 'rgba(111,180,255,0.9)';
-    ctx.shadowBlur = 8;
+    // build left/right edges from perpendicular normals
+    const L = new Array(n), R = new Array(n);
+    for (let i = 0; i < n; i++) {
+        const a = pts[Math.max(0, i - 1)], b = pts[Math.min(n - 1, i + 1)];
+        let nx = -(b[1] - a[1]), ny = (b[0] - a[0]);
+        const len = Math.hypot(nx, ny) || 1; nx /= len; ny /= len;
+        L[i] = [pts[i][0] + nx * hw[i], pts[i][1] + ny * hw[i]];
+        R[i] = [pts[i][0] - nx * hw[i], pts[i][1] - ny * hw[i]];
+    }
+
+    // filled tentacle body (dark-blue so the silhouette reads on black)
+    ctx.beginPath();
+    ctx.moveTo(L[0][0], L[0][1]);
+    for (let i = 1; i < n; i++) ctx.lineTo(L[i][0], L[i][1]);
+    for (let i = n - 1; i >= 0; i--) ctx.lineTo(R[i][0], R[i][1]);
+    ctx.closePath();
+    const grad = ctx.createLinearGradient(pts[0][0], pts[0][1], pts[n - 1][0], pts[n - 1][1]);
+    grad.addColorStop(0, 'rgba(22,30,52,0.96)');
+    grad.addColorStop(0.5, 'rgba(14,20,36,0.88)');
+    grad.addColorStop(1, 'rgba(10,14,26,0.3)');
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // rooted base bulb
+    ctx.beginPath();
+    ctx.arc(pts[0][0], pts[0][1], base * 1.12, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(22,30,52,0.96)';
+    ctx.fill();
+
+    // wet sheen spine down the middle
     ctx.beginPath();
     ctx.moveTo(pts[0][0], pts[0][1]);
-    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
-    ctx.lineWidth = 1.1;
-    ctx.strokeStyle = `rgba(190,215,255,${o.rim == null ? 0.5 : o.rim})`;
+    for (let i = 1; i < n; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.lineWidth = Math.max(0.6, base * 0.3);
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = 'rgba(90,150,230,0.14)';
     ctx.stroke();
+
+    // glowing wet rims along BOTH tapered edges (so thick->thin reads)
+    ctx.save();
+    ctx.shadowColor = 'rgba(120,185,255,0.9)';
+    ctx.shadowBlur = 6;
+    ctx.lineWidth = 1.1;
+    ctx.strokeStyle = `rgba(190,215,255,${o.rim == null ? 0.42 : o.rim})`;
+    for (const E of [L, R]) {
+        ctx.beginPath();
+        ctx.moveTo(E[0][0], E[0][1]);
+        for (let i = 1; i < n; i++) ctx.lineTo(E[i][0], E[i][1]);
+        ctx.stroke();
+    }
     ctx.restore();
-    // tip node
-    const tip = pts[pts.length - 1];
+
+    // glistening tip
+    const tip = pts[n - 1];
     ctx.beginPath();
     ctx.arc(tip[0], tip[1], 1.6, 0, Math.PI * 2);
-    ctx.fillStyle = o.tipRed ? 'rgba(255,87,108,0.9)' : 'rgba(200,225,255,0.85)';
+    ctx.fillStyle = o.tipRed ? 'rgba(255,87,108,0.95)' : 'rgba(205,228,255,0.85)';
     ctx.fill();
     return pts;
 }
@@ -94,13 +134,13 @@ function initTendrils() {
             tendrils.push({
                 x: a.x, y: a.y,
                 angle: a.angle + (Math.random() - 0.5) * 0.8,
-                segs: 14 + ((Math.random() * 8) | 0),
-                segLen: 16 + Math.random() * 14,
-                bend: 0.12 + Math.random() * 0.1,
+                segs: 13 + ((Math.random() * 7) | 0),
+                segLen: 18 + Math.random() * 14,
+                bend: 0.1 + Math.random() * 0.09,
                 phase: Math.random() * Math.PI * 2,
                 speed: 0.004 + Math.random() * 0.004,
-                width: 5 + Math.random() * 3,
-                rim: 0.25 + Math.random() * 0.3,
+                width: 11 + Math.random() * 8,
+                rim: 0.26 + Math.random() * 0.28,
                 reach: Math.random() < 0.6,
                 tipRed: Math.random() < 0.18
             });
@@ -178,7 +218,7 @@ function initIntro(done) {
     const strands = [];
     for (let i = 0; i < 26; i++) {
         const ang = (i / 26) * Math.PI * 2 + Math.random() * 0.2;
-        strands.push({ x: cx(), y: cy(), angle: ang, segs: 20, segLen: 26 + Math.random() * 10, bend: 0.14 + Math.random() * 0.08, phase: Math.random() * 6, speed: 0.02, width: 6, rim: 0.55, tipRed: Math.random() < 0.2 });
+        strands.push({ x: cx(), y: cy(), angle: ang, segs: 20, segLen: 26 + Math.random() * 10, bend: 0.14 + Math.random() * 0.08, phase: Math.random() * 6, speed: 0.02, width: 9 + Math.random() * 3, rim: 0.5, tipRed: Math.random() < 0.2 });
     }
 
     const START = performance.now();
