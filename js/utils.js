@@ -1,29 +1,25 @@
-// ===========================
-// Custom Cursor Glow Pattern
-// ===========================
+// ========= RED RADAR CURSOR =========
 const cursorGlow = document.getElementById('cursor-glow');
 
-document.addEventListener('mousemove', (e) => {
-    // We adjust the transform instead of raw left/top for smoother performance
-    cursorGlow.style.left = `${e.clientX}px`;
-    cursorGlow.style.top = `${e.clientY}px`;
-});
+if (cursorGlow) {
+    document.addEventListener('mousemove', (e) => {
+        cursorGlow.style.left = `${e.clientX}px`;
+        cursorGlow.style.top = `${e.clientY}px`;
+    });
 
-// Avoid weird scrolling issues with fixed radial gradient by hiding it off screen when out
-document.addEventListener('mouseleave', () => {
-    cursorGlow.style.opacity = '0';
-});
-document.addEventListener('mouseenter', () => {
-    cursorGlow.style.opacity = '1';
-});
+    document.addEventListener('mouseleave', () => {
+        cursorGlow.style.opacity = '0';
+    });
+    document.addEventListener('mouseenter', () => {
+        cursorGlow.style.opacity = '1';
+    });
+}
 
-// ===========================
-// Text Scramble Effect
-// ===========================
+// ========= TEXT SCRAMBLE EFFECT =========
 class TextScramble {
     constructor(el) {
         this.el = el;
-        this.chars = '!<>-_\\/[]{}—=+*^?#_0110';
+        this.chars = '!<>-_\\/[]{}=+*^?#01';
         this.update = this.update.bind(this);
     }
     setText(newText) {
@@ -56,7 +52,7 @@ class TextScramble {
                     char = this.randomChar();
                     this.queue[i].char = char;
                 }
-                output += `<span class="subtitle_mono">${char}</span>`;
+                output += `<span style="color:var(--accent-primary);opacity:0.7">${char}</span>`;
             } else {
                 output += from;
             }
@@ -74,16 +70,14 @@ class TextScramble {
     }
 }
 
-// Scramble text initialization on nodes
 document.addEventListener('DOMContentLoaded', () => {
     const scrambleElements = document.querySelectorAll('.scramble-text');
-    
-    // Intersection Observer to run scramble only when element is in view
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if(entry.isIntersecting) {
+            if (entry.isIntersecting) {
                 const el = entry.target;
-                if(!el.dataset.scrambled) {
+                if (!el.dataset.scrambled) {
                     const text = el.innerText;
                     const fx = new TextScramble(el);
                     fx.setText(text);
