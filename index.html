@@ -3,43 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Snehil Shourya | Cyber-Noir Portfolio & Writeups">
-    <title>Snehil Shourya | Cybersecurity Portfolio</title>
-    
-    <!-- Fonts -->
+    <meta name="description" content="Snehil Shourya | The Devil in the Network - Cybersecurity Portfolio">
+    <title>Snehil Shourya | The Devil in the Network</title>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    
-    <!-- Highlight.js for Code blocks -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
-    
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <canvas id="particle-canvas"></canvas>
     <div id="cursor-glow"></div>
-    
+
     <nav class="navbar glass">
-        <div class="logo">
-            <span class="glitch" data-text="Terminal">Terminal</span>
-        </div>
+        <div class="logo">Devil's Terminal</div>
         <ul class="nav-links">
-            <li><a href="#about" class="active">About</a></li>
-            <li><a href="#portfolio">Bounty Wins</a></li>
-            <li><a href="#writeups">Writeups</a></li>
+            <li><a href="#about" class="active">Whoami</a></li>
+            <li><a href="#portfolio">Hall of Fame</a></li>
+            <li><a href="#writeups">Dossiers</a></li>
             <li><a href="resume.html">Resume</a></li>
         </ul>
     </nav>
 
     <header class="hero">
         <div class="hero-content">
-            <div id="hacker-boot" class="subtitle_mono" style="min-height: 80px; margin-bottom: 0.5rem; display: flex; flex-direction: column; justify-content: flex-end;">
-                <p>&gt; Initializing protocol...</p>
+            <!-- Heartbeat Line -->
+            <div class="heartbeat-container">
+                <svg viewBox="0 0 600 50" preserveAspectRatio="none">
+                    <path class="heartbeat-line" d="M0,25 L120,25 L140,25 L155,5 L165,45 L175,15 L185,35 L195,25 L220,25 L240,25 L255,8 L265,42 L275,18 L285,32 L295,25 L400,25 L600,25"/>
+                </svg>
             </div>
-            <h1 class="scramble-text">Snehil Shourya</h1>
-            <p class="tagline">Penetration Tester • Bug Hunter • Security Researcher</p>
+
+            <!-- Sound Wave Visualizer -->
+            <div class="sound-wave" aria-hidden="true">
+                <span style="--i:1"></span><span style="--i:3"></span><span style="--i:5"></span>
+                <span style="--i:8"></span><span style="--i:6"></span><span style="--i:10"></span>
+                <span style="--i:4"></span><span style="--i:9"></span><span style="--i:7"></span>
+                <span style="--i:11"></span><span style="--i:5"></span><span style="--i:8"></span>
+                <span style="--i:3"></span><span style="--i:10"></span><span style="--i:6"></span>
+                <span style="--i:9"></span><span style="--i:4"></span><span style="--i:7"></span>
+                <span style="--i:11"></span><span style="--i:2"></span><span style="--i:8"></span>
+                <span style="--i:5"></span><span style="--i:10"></span><span style="--i:3"></span>
+                <span style="--i:7"></span><span style="--i:9"></span><span style="--i:6"></span>
+                <span style="--i:4"></span><span style="--i:11"></span><span style="--i:8"></span>
+            </div>
+
+            <!-- Boot Sequence -->
+            <div id="hacker-boot" class="subtitle_mono" style="min-height: 90px; margin-bottom: 0.5rem; display: flex; flex-direction: column; justify-content: flex-end;">
+                <p>> Initializing protocol...</p>
+            </div>
+
+            <h1 class="glitch-text" data-text="Snehil Shourya">Snehil Shourya</h1>
+            <p class="tagline">Penetration Tester &bull; Bug Hunter &bull; Security Researcher</p>
+            <p class="devil-quote">"The world sleeps. I exploit."</p>
+
             <div class="cta-group">
-                <a href="#writeups" class="btn btn-primary">./execute _read-writeups.sh</a>
-                <a href="resume.html" class="btn btn-primary" style="margin-left: 1rem;">Resume</a>
+                <a href="#writeups" class="btn btn-primary">./access --classified</a>
+                <a href="resume.html" class="btn btn-primary">./resume --decrypt</a>
             </div>
         </div>
     </header>
@@ -47,14 +65,16 @@
     <main>
         <section id="about" class="section reveal">
             <div class="container">
-                <h2 class="section-title scramble-text">Whoami</h2>
+                <h2 class="section-title">Whoami</h2>
                 <div class="about-grid">
                     <div class="about-card glass">
-                        <p>I am a Cybersecurity enthusiast specialising in uncovering complex vulnerabilities in high-value targets. With a robust track record across global bug bounty platforms, I bridge the gap between creative exploitation and secure design.</p>
+                        <p>I operate in the shadows of the network. A cybersecurity researcher specialising in uncovering critical vulnerabilities in high-value targets. With a track record across global bug bounty platforms, I bridge the gap between creative exploitation and secure design. When the sun goes down, the real work begins.</p>
                         <div class="tech-stack">
                             <span class="badge">Web Application Pentesting</span>
                             <span class="badge">Reverse Engineering</span>
                             <span class="badge">Source Code Auditing</span>
+                            <span class="badge">Active Directory</span>
+                            <span class="badge">ADCS Exploitation</span>
                         </div>
                     </div>
                 </div>
@@ -63,15 +83,16 @@
 
         <section id="portfolio" class="section reveal">
             <div class="container">
-                <h2 class="section-title scramble-text">Bounty Hall of Fame</h2>
+                <h2 class="section-title">Bounty Hall of Fame</h2>
+                <p class="section-subtitle subtitle_mono">> Targets neutralized. Acknowledgements received.</p>
                 <div class="portfolio-grid">
                     <div class="card glass">
-                        <div class="card-icon">🍎</div>
+                        <div class="card-icon">&#127822;</div>
                         <h3>Apple</h3>
                         <p>Acknowledged for reporting multiple vulnerabilities in subdomains. Hall of Fame 2025</p>
                     </div>
                     <div class="card glass">
-                        <div class="card-icon">🔍</div>
+                        <div class="card-icon">&#128270;</div>
                         <h3>Google</h3>
                         <p>Secured Android. Hall of Fame 2025</p>
                     </div>
@@ -81,37 +102,25 @@
 
         <section id="writeups" class="section reveal">
             <div class="container">
-                <div class="terminal-header">
-                    <h2 class="scramble-text">root@snehil:~# ls -la /writeups</h2>
-                </div>
-                
-                <div class="filter-tabs">
-                    <!-- Filter tabs injected here dynamically via JS -->
-                </div>
+                <h2 class="section-title">Classified Dossiers</h2>
+                <p class="section-subtitle subtitle_mono">> Access restricted. Decrypting archives...</p>
 
-                <div id="writeups-container" class="writeups-grid">
-                    <!-- Writeup cards injected here dynamically via JS -->
+                <div id="writeups-accordion">
                     <div class="loading-state">
-                        <p class="subtitle_mono blink">&gt; Fetching files...</p>
+                        <p class="subtitle_mono blink">> Decrypting files...</p>
                     </div>
                 </div>
             </div>
-
-
         </section>
     </main>
-    
+
     <footer>
-        <p class="subtitle_mono">&gt; EOF Snehil Shourya © 2026. Built with Express & Vanilla JS.</p>
+        <p class="subtitle_mono">> The Devil Never Sleeps. Snehil Shourya &copy; 2026</p>
     </footer>
 
-    <!-- GSAP for animations -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <!-- Highlight.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
-    
-    <!-- Custom JS -->
     <script src="js/utils.js"></script>
     <script src="js/app.js"></script>
 </body>
