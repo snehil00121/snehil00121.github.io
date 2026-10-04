@@ -3,124 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Snehil Shourya | The Devil in the Network - Cybersecurity Portfolio">
-    <title>Snehil Shourya | The Devil in the Network</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <meta name="description" content="Snehil Shourya — Penetration Tester, Bug Bounty Hunter & Security Researcher. Acknowledged by Apple, Google & NCIIPC.">
+    <meta name="theme-color" content="#07070a">
+    <title>Snehil Shourya — Offensive Security</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-    <canvas id="particle-canvas"></canvas>
-    <div id="cursor-glow"></div>
+    <canvas id="world-map" aria-hidden="true"></canvas>
+    <div id="scanline" aria-hidden="true"></div>
+    <div id="cursor-glow" aria-hidden="true"></div>
 
-    <nav class="navbar glass">
-        <div class="logo">Devil's Terminal</div>
+    <nav class="navbar">
+        <a href="#top" class="logo">snehil<span class="logo-at">@</span>sec<span class="logo-cursor">_</span></a>
         <ul class="nav-links">
-            <li><a href="#about" class="active">Whoami</a></li>
-            <li><a href="#portfolio">Hall of Fame</a></li>
-            <li><a href="#writeups">Dossiers</a></li>
-            <li><a href="resume.html">Resume</a></li>
+            <li><a href="#about">./about</a></li>
+            <li><a href="#honors">./honors</a></li>
+            <li><a href="#writeups">./writeups</a></li>
+            <li><a href="resume.html">./resume</a></li>
         </ul>
     </nav>
 
-    <header class="hero">
-        <div class="hero-content">
-            <!-- Heartbeat Line -->
-            <div class="heartbeat-container">
-                <svg viewBox="0 0 600 50" preserveAspectRatio="none">
-                    <path class="heartbeat-line" d="M0,25 L120,25 L140,25 L155,5 L165,45 L175,15 L185,35 L195,25 L220,25 L240,25 L255,8 L265,42 L275,18 L285,32 L295,25 L400,25 L600,25"/>
-                </svg>
+    <header id="top" class="hero">
+        <div class="hero-inner">
+            <p class="hero-status"><span class="dot-live"></span> status: <span class="accent">active</span> &bull; last recon: tonight</p>
+            <h1 class="hero-name">Snehil Shourya</h1>
+            <p class="hero-role">Penetration Tester <span class="sep">/</span> Bug Bounty Hunter <span class="sep">/</span> Security Researcher</p>
+            <p class="hero-bio">I break into high-value targets before the wrong people do. Web, Active Directory and source-code audits are my playground — and when the city sleeps, the recon begins.</p>
+            <div class="hero-cta">
+                <a href="#writeups" class="btn btn-primary">Read the writeups</a>
+                <a href="resume.html" class="btn btn-ghost">View resume</a>
             </div>
-
-            <!-- Sound Wave Visualizer -->
-            <div class="sound-wave" aria-hidden="true">
-                <span style="--i:1"></span><span style="--i:3"></span><span style="--i:5"></span>
-                <span style="--i:8"></span><span style="--i:6"></span><span style="--i:10"></span>
-                <span style="--i:4"></span><span style="--i:9"></span><span style="--i:7"></span>
-                <span style="--i:11"></span><span style="--i:5"></span><span style="--i:8"></span>
-                <span style="--i:3"></span><span style="--i:10"></span><span style="--i:6"></span>
-                <span style="--i:9"></span><span style="--i:4"></span><span style="--i:7"></span>
-                <span style="--i:11"></span><span style="--i:2"></span><span style="--i:8"></span>
-                <span style="--i:5"></span><span style="--i:10"></span><span style="--i:3"></span>
-                <span style="--i:7"></span><span style="--i:9"></span><span style="--i:6"></span>
-                <span style="--i:4"></span><span style="--i:11"></span><span style="--i:8"></span>
-            </div>
-
-            <!-- Boot Sequence -->
-            <div id="hacker-boot" class="subtitle_mono" style="min-height: 90px; margin-bottom: 0.5rem; display: flex; flex-direction: column; justify-content: flex-end;">
-                <p>> Initializing protocol...</p>
-            </div>
-
-            <h1 class="glitch-text" data-text="Snehil Shourya">Snehil Shourya</h1>
-            <p class="tagline">Penetration Tester &bull; Bug Hunter &bull; Security Researcher</p>
-            <p class="devil-quote">"The world sleeps. I exploit."</p>
-
-            <div class="cta-group">
-                <a href="#writeups" class="btn btn-primary">./access --classified</a>
-                <a href="resume.html" class="btn btn-primary">./resume --decrypt</a>
+            <div class="hero-stats">
+                <div class="stat"><span class="stat-num" data-count="17">0</span><span class="stat-label">Writeups</span></div>
+                <div class="stat"><span class="stat-num" data-count="3">0</span><span class="stat-label">Halls of Fame</span></div>
+                <div class="stat"><span class="stat-num" data-count="4">0</span><span class="stat-label">Certifications</span></div>
+                <div class="stat"><span class="stat-num plus" data-count="12000">0</span><span class="stat-label">PII records secured</span></div>
             </div>
         </div>
+        <a href="#about" class="scroll-hint" aria-label="Scroll down">
+            <span class="scroll-hint-text">scroll</span>
+            <span class="scroll-hint-arrow"></span>
+        </a>
     </header>
 
     <main>
         <section id="about" class="section reveal">
             <div class="container">
-                <h2 class="section-title">Whoami</h2>
+                <div class="section-head">
+                    <span class="section-index">01</span>
+                    <h2 class="section-title">whoami</h2>
+                    <span class="section-rule"></span>
+                </div>
                 <div class="about-grid">
-                    <div class="about-card glass">
-                        <p>I operate in the shadows of the network. A cybersecurity researcher specialising in uncovering critical vulnerabilities in high-value targets. With a track record across global bug bounty platforms, I bridge the gap between creative exploitation and secure design. When the sun goes down, the real work begins.</p>
-                        <div class="tech-stack">
-                            <span class="badge">Web Application Pentesting</span>
-                            <span class="badge">Reverse Engineering</span>
-                            <span class="badge">Source Code Auditing</span>
-                            <span class="badge">Active Directory</span>
-                            <span class="badge">ADCS Exploitation</span>
+                    <div class="about-text">
+                        <p>I'm a cybersecurity researcher focused on <strong>offensive security</strong> — finding the vulnerabilities that matter in the targets that matter. My work spans web application pentesting, Active Directory exploitation, ADCS abuse and source-code auditing.</p>
+                        <p>I've been acknowledged by <strong>Apple</strong> and <strong>Google</strong> for responsibly disclosed vulnerabilities, reported a data leak exposing <strong>12,000+ PII records</strong> to NCIIPC, and I build CTF challenges for my university's OWASP chapter.</p>
+                        <p>Currently pursuing a B.Tech in Computer Science (Cyber Security) at VIT Bhopal, and completing the HTB CPTS path.</p>
+                        <div class="about-links">
+                            <a href="https://github.com/snehil00121/" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a href="https://www.linkedin.com/in/snehilshourya101/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                            <a href="https://mrtom001.medium.com/" target="_blank" rel="noopener noreferrer">Medium</a>
+                            <a href="mailto:snehilshourya2913@gmail.com">Email</a>
+                        </div>
+                    </div>
+                    <div class="about-arsenal">
+                        <h3 class="arsenal-title">// arsenal</h3>
+                        <div class="arsenal-group">
+                            <span class="arsenal-label">Web</span>
+                            <div class="chips"><span>Burp Suite Pro</span><span>OWASP Top 10</span><span>IDOR</span><span>SQLi</span><span>XSS</span><span>API</span></div>
+                        </div>
+                        <div class="arsenal-group">
+                            <span class="arsenal-label">AD / Network</span>
+                            <div class="chips"><span>BloodHound</span><span>Mimikatz</span><span>Certipy</span><span>Impacket</span><span>Nmap</span><span>Responder</span></div>
+                        </div>
+                        <div class="arsenal-group">
+                            <span class="arsenal-label">Code</span>
+                            <div class="chips"><span>Python</span><span>C / C++</span><span>Bash</span><span>JavaScript</span><span>SQL</span></div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="portfolio" class="section reveal">
+        <section id="honors" class="section reveal">
             <div class="container">
-                <h2 class="section-title">Bounty Hall of Fame</h2>
-                <p class="section-subtitle subtitle_mono">> Targets neutralized. Acknowledgements received.</p>
-                <div class="portfolio-grid">
-                    <div class="card glass">
-                        <div class="card-icon">&#127822;</div>
+                <div class="section-head">
+                    <span class="section-index">02</span>
+                    <h2 class="section-title">hall of fame</h2>
+                    <span class="section-rule"></span>
+                </div>
+                <div class="honors-grid">
+                    <article class="honor-card">
+                        <div class="honor-top"><span class="honor-logo"></span><span class="honor-year">2025</span></div>
                         <h3>Apple</h3>
-                        <p>Acknowledged for reporting multiple vulnerabilities in subdomains. Hall of Fame 2025</p>
-                    </div>
-                    <div class="card glass">
-                        <div class="card-icon">&#128270;</div>
+                        <p>Acknowledged in the Apple Security Hall of Fame for reporting multiple vulnerabilities across Apple subdomains.</p>
+                    </article>
+                    <article class="honor-card">
+                        <div class="honor-top"><span class="honor-logo"></span><span class="honor-year">2025</span></div>
                         <h3>Google</h3>
-                        <p>Secured Android. Hall of Fame 2025</p>
-                    </div>
+                        <p>Hall of Fame + bounty for an RCE in cloud infrastructure and a logic bug in Android 14's ADB authorization.</p>
+                    </article>
+                    <article class="honor-card">
+                        <div class="honor-top"><span class="honor-logo"></span><span class="honor-year">2025</span></div>
+                        <h3>NCIIPC — India</h3>
+                        <p>Recognized for reporting a data leak exposing the PII of over 12,000 users.</p>
+                    </article>
                 </div>
             </div>
         </section>
 
         <section id="writeups" class="section reveal">
             <div class="container">
-                <h2 class="section-title">Classified Dossiers</h2>
-                <p class="section-subtitle subtitle_mono">> Access restricted. Decrypting archives...</p>
-
-                <div id="writeups-accordion">
-                    <div class="loading-state">
-                        <p class="subtitle_mono blink">> Decrypting files...</p>
-                    </div>
+                <div class="section-head">
+                    <span class="section-index">03</span>
+                    <h2 class="section-title">writeups</h2>
+                    <span class="section-rule"></span>
+                </div>
+                <p class="section-sub">Field notes from boxes I've rooted and bugs I've chained. <span id="wu-count"></span></p>
+                <div class="filter-tabs" id="filter-tabs"></div>
+                <div id="writeups-grid" class="writeups-grid">
+                    <noscript><p class="muted">Enable JavaScript to browse the writeups, or view them directly in <a href="api/writeups.json">the archive</a>.</p></noscript>
+                    <p class="loading muted">decrypting archive&hellip;</p>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <p class="subtitle_mono">> The Devil Never Sleeps. Snehil Shourya &copy; 2026</p>
+    <footer class="footer">
+        <div class="container footer-inner">
+            <div>
+                <p class="footer-brand">snehil@sec</p>
+                <p class="muted">The devil never sleeps. Neither does the recon.</p>
+            </div>
+            <div class="footer-links">
+                <a href="https://github.com/snehil00121/" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <a href="https://www.linkedin.com/in/snehilshourya101/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://mrtom001.medium.com/" target="_blank" rel="noopener noreferrer">Medium</a>
+                <a href="mailto:snehilshourya2913@gmail.com">Email</a>
+            </div>
+        </div>
+        <p class="footer-copy muted">&copy; 2026 Snehil Shourya &bull; built in the dark</p>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/app.js"></script>
 </body>

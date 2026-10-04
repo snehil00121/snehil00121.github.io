@@ -3,42 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snehil Shourya | Dossier</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+    <title>Writeup — Snehil Shourya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-    <div id="cursor-glow"></div>
+    <div id="cursor-glow" aria-hidden="true"></div>
 
-    <nav class="navbar glass">
-        <div class="logo">Devil's Terminal</div>
+    <nav class="navbar">
+        <a href="index.html" class="logo">snehil<span class="logo-at">@</span>sec<span class="logo-cursor">_</span></a>
         <ul class="nav-links">
-            <li><a href="index.html" class="active">&lt; Back to HQ</a></li>
+            <li><a href="index.html#about">./about</a></li>
+            <li><a href="index.html#writeups">./writeups</a></li>
+            <li><a href="resume.html">./resume</a></li>
         </ul>
     </nav>
 
-    <main style="padding-top: 110px; min-height: 80vh;">
-        <section class="section">
-            <div class="container writeup-layout">
-                <article class="glass" style="padding: 2.5rem; position: relative; border-left: 3px solid var(--accent-primary);">
-                    <div id="writeup-content" class="markdown-body">
-                        <p class="subtitle_mono blink">> Decrypting classified file...</p>
-                    </div>
-                </article>
-
-                <aside id="toc-sidebar" class="toc-sidebar glass">
-                    <div class="toc-title">> Contents</div>
-                </aside>
-            </div>
-        </section>
+    <main class="read-main">
+        <a href="index.html#writeups" class="read-back"><span aria-hidden="true">←</span> back to writeups</a>
+        <div class="writeup-layout">
+            <article class="read-article">
+                <div id="writeup-content" class="markdown-body">
+                    <p class="loading muted">decrypting file&hellip;</p>
+                </div>
+            </article>
+            <aside id="toc-sidebar" class="toc-sidebar"></aside>
+        </div>
     </main>
 
-    <footer>
-        <p class="subtitle_mono">> The Devil Never Sleeps. Snehil Shourya &copy; 2026</p>
+    <footer class="footer">
+        <p class="footer-copy muted">&copy; 2026 Snehil Shourya &bull; built in the dark</p>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/writeup.js"></script>
 </body>

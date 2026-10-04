@@ -1,91 +1,35 @@
-// ========= RED RADAR CURSOR =========
-const cursorGlow = document.getElementById('cursor-glow');
-
-if (cursorGlow) {
-    document.addEventListener('mousemove', (e) => {
-        cursorGlow.style.left = `${e.clientX}px`;
-        cursorGlow.style.top = `${e.clientY}px`;
-    });
-
-    document.addEventListener('mouseleave', () => {
-        cursorGlow.style.opacity = '0';
-    });
-    document.addEventListener('mouseenter', () => {
-        cursorGlow.style.opacity = '1';
-    });
-}
-
-// ========= TEXT SCRAMBLE EFFECT =========
-class TextScramble {
-    constructor(el) {
-        this.el = el;
-        this.chars = '!<>-_\\/[]{}=+*^?#01';
-        this.update = this.update.bind(this);
-    }
-    setText(newText) {
-        const oldText = this.el.innerText;
-        const length = Math.max(oldText.length, newText.length);
-        const promise = new Promise((resolve) => this.resolve = resolve);
-        this.queue = [];
-        for (let i = 0; i < length; i++) {
-            const from = oldText[i] || '';
-            const to = newText[i] || '';
-            const start = Math.floor(Math.random() * 40);
-            const end = start + Math.floor(Math.random() * 40);
-            this.queue.push({ from, to, start, end });
-        }
-        cancelAnimationFrame(this.frameRequest);
-        this.frame = 0;
-        this.update();
-        return promise;
-    }
-    update() {
-        let output = '';
-        let complete = 0;
-        for (let i = 0, n = this.queue.length; i < n; i++) {
-            let { from, to, start, end, char } = this.queue[i];
-            if (this.frame >= end) {
-                complete++;
-                output += to;
-            } else if (this.frame >= start) {
-                if (!char || Math.random() < 0.28) {
-                    char = this.randomChar();
-                    this.queue[i].char = char;
-                }
-                output += `<span style="color:var(--accent-primary);opacity:0.7">${char}</span>`;
-            } else {
-                output += from;
-            }
-        }
-        this.el.innerHTML = output;
-        if (complete === this.queue.length) {
-            this.resolve();
-        } else {
-            this.frameRequest = requestAnimationFrame(this.update);
-            this.frame++;
-        }
-    }
-    randomChar() {
-        return this.chars[Math.floor(Math.random() * this.chars.length)];
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const scrambleElements = document.querySelectorAll('.scramble-text');
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const el = entry.target;
-                if (!el.dataset.scrambled) {
-                    const text = el.innerText;
-                    const fx = new TextScramble(el);
-                    fx.setText(text);
-                    el.dataset.scrambled = "true";
-                }
-            }
+/* Cursor glow + nav active-section highlight. Pure vanilla. */
+(function () {
+    const glow = document.getElementById('cursor-glow');
+    if (glow && window.matchMedia('(pointer: fine)').matches) {
+        let raf;
+        window.addEventListener('mousemove', (e) => {
+            if (raf) return;
+            raf = requestAnimationFrame(() => {
+                glow.style.left = e.clientX + 'px';
+                glow.style.top = e.clientY + 'px';
+                glow.style.opacity = '1';
+                raf = null;
+            });
         });
-    }, { threshold: 0.1 });
+        document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
+    }
 
-    scrambleElements.forEach(el => observer.observe(el));
-});
+    // Highlight the nav link for the section in view.
+    const links = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+    const map = {};
+    links.forEach(a => { const id = a.getAttribute('href').slice(1); const s = document.getElementById(id); if (s) map[id] = a; });
+    const sections = Object.keys(map).map(id => document.getElementById(id));
+    if ('IntersectionObserver' in window && sections.length) {
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    links.forEach(a => a.style.color = '');
+                    const a = map[e.target.id];
+                    if (a) a.style.color = '#fff';
+                }
+            });
+        }, { rootMargin: '-45% 0px -50% 0px' });
+        sections.forEach(s => io.observe(s));
+    }
+})();

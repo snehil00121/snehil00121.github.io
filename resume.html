@@ -3,299 +3,134 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snehil Shourya | Security Resume</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Resume — Snehil Shourya</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <style>
-        .resume-container {
-            max-width: 900px;
-            margin: 0 auto;
-            color: var(--text-main);
-            font-family: var(--font-sans);
-            line-height: 1.6;
-            padding: 3rem;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            border-left: 3px solid var(--accent-primary);
-        }
-        .resume-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            border-bottom: 1px solid rgba(220,20,60,0.15);
-            padding-bottom: 1.5rem;
-        }
-        .resume-header h1 {
-            font-size: 2.5rem;
-            color: var(--text-main);
-            margin-bottom: 0.5rem;
-            font-weight: 700;
-        }
-        .resume-header .subtitle {
-            font-family: var(--font-mono);
-            color: var(--accent-primary);
-            font-size: 1.1rem;
-            margin-bottom: 0.8rem;
-        }
-        .resume-header .contact-info {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        .resume-header .contact-info a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.2s ease;
-        }
-        .resume-header .contact-info a:hover {
-            color: var(--accent-primary);
-        }
-        .resume-section {
-            margin-bottom: 2.5rem;
-        }
-        .resume-section h2 {
-            font-size: 1.4rem;
-            color: var(--accent-primary);
-            border-bottom: 1px solid rgba(220,20,60,0.1);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-            font-family: var(--font-mono);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .resume-item {
-            margin-bottom: 1.8rem;
-        }
-        .resume-item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 0.2rem;
-            flex-wrap: wrap;
-        }
-        .resume-item-title {
-            font-size: 1.15rem;
-            color: var(--text-main);
-            font-weight: 600;
-        }
-        .resume-item-date {
-            color: var(--accent-primary);
-            font-family: var(--font-mono);
-            font-size: 0.88rem;
-        }
-        .resume-item-subtitle {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            font-style: italic;
-            margin-bottom: 0.5rem;
-            display: flex;
-            justify-content: space-between;
-        }
-        .resume-item-location {
-            font-style: normal;
-            font-size: 0.88rem;
-        }
-        ul.resume-list {
-            list-style: none;
-            padding-left: 0;
-            margin-top: 0.5rem;
-        }
-        ul.resume-list li {
-            position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-main);
-            font-size: 0.95rem;
-        }
-        ul.resume-list li::before {
-            content: '\25B9';
-            position: absolute;
-            left: 0;
-            color: var(--accent-primary);
-        }
-        .skills-list {
-            list-style: none;
-            padding-left: 0;
-        }
-        .skills-list li {
-            margin-bottom: 0.8rem;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-        .skills-list strong {
-            color: var(--accent-primary);
-            font-weight: 600;
-        }
-        .achievement-list li {
-            position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 0.8rem;
-            font-size: 0.95rem;
-        }
-        .achievement-list li::before {
-            content: '\25B9';
-            position: absolute;
-            left: 0;
-            color: var(--accent-secondary);
-        }
-        .achievement-list strong {
-            color: var(--text-main);
-            font-weight: 600;
-        }
-    </style>
+    <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-    <div id="cursor-glow"></div>
+    <div id="cursor-glow" aria-hidden="true"></div>
 
-    <nav class="navbar glass">
-        <div class="logo">Devil's Terminal</div>
+    <nav class="navbar">
+        <a href="index.html" class="logo">snehil<span class="logo-at">@</span>sec<span class="logo-cursor">_</span></a>
         <ul class="nav-links">
-            <li><a href="index.html" class="active">&lt; Back to HQ</a></li>
+            <li><a href="index.html#about">./about</a></li>
+            <li><a href="index.html#writeups">./writeups</a></li>
+            <li><a href="index.html">./home</a></li>
         </ul>
     </nav>
 
-    <main style="padding-top: 110px; min-height: 80vh; padding-bottom: 50px;">
-        <div class="resume-container">
-
-            <div class="resume-header">
-                <h1>Snehil Shourya</h1>
-                <div class="subtitle">Security Researcher | Pentester</div>
-                <div class="contact-info">
-                    <span>+91 6206489020</span>
-                    <span>|</span>
-                    <a href="mailto:snehilshourya2913@gmail.com">snehilshourya2913@gmail.com</a>
-                    <span>|</span>
-                    <a href="https://www.linkedin.com/in/snehilshourya101/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                    <span>|</span>
-                    <a href="https://github.com/snehil00121/" target="_blank" rel="noopener noreferrer">GitHub</a>
-                    <span>|</span>
-                    <a href="https://mrtom001.medium.com/" target="_blank" rel="noopener noreferrer">Medium</a>
-                </div>
+    <main class="resume-main">
+        <header class="resume-head">
+            <h1>Snehil Shourya</h1>
+            <p class="resume-role">Security Researcher &bull; Penetration Tester</p>
+            <div class="resume-contact">
+                <a href="mailto:snehilshourya2913@gmail.com">snehilshourya2913@gmail.com</a>
+                <span>&bull;</span>
+                <a href="tel:+916206489020">+91 6206489020</a>
+                <span>&bull;</span>
+                <a href="https://www.linkedin.com/in/snehilshourya101/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <span>&bull;</span>
+                <a href="https://github.com/snehil00121/" target="_blank" rel="noopener noreferrer">GitHub</a>
+                <span>&bull;</span>
+                <a href="https://mrtom001.medium.com/" target="_blank" rel="noopener noreferrer">Medium</a>
             </div>
+        </header>
 
-            <div class="resume-section">
-                <h2>Security Achievements &amp; Hall of Fame</h2>
-                <ul class="achievement-list" style="list-style: none; padding-left: 0;">
-                    <li><strong>Apple Hall of Fame (01/2025):</strong> Officially acknowledged for identifying critical security vulnerabilities.</li>
-                    <li><strong>Google Hall of Fame (08/2025):</strong> Acknowledged for discovering an RCE in cloud infrastructure and a valid logic bug in Android 14.</li>
-                    <li><strong>NCIIPC Acknowledgement (04/2025):</strong> Recognized for reporting a data leak exposing PII of 12,000+ users.</li>
-                    <li><strong>Google Bug Bounty:</strong> Awarded bounty for identifying a persistent access flaw in Android 14 ADB authorization.</li>
-                </ul>
-            </div>
-
-            <div class="resume-section">
-                <h2>Education</h2>
-                <div class="resume-item">
-                    <div class="resume-item-header">
-                        <span class="resume-item-title">Vellore Institute of Technology (VIT)</span>
-                        <span class="resume-item-date">2023 &ndash; 2027 (Expected)</span>
-                    </div>
-                    <div class="resume-item-subtitle">
-                        <span>B.Tech in Computer Science (Cyber Security Specialization)</span>
-                        <span class="resume-item-location">Bhopal, India</span>
-                    </div>
-                    <p style="font-size: 0.95rem; margin-top: 0.5rem; color: var(--text-muted);"><strong style="color:var(--accent-primary)">Relevant Coursework:</strong> Network Security, Cryptography, Linux Administration, C/C++ Programming.</p>
-                </div>
-                <div class="resume-item">
-                    <div class="resume-item-header">
-                        <span class="resume-item-title">DPS Bokaro</span>
-                        <span class="resume-item-date">2021 &ndash; 2023</span>
-                    </div>
-                    <div class="resume-item-subtitle">
-                        <span>Higher Secondary School</span>
-                        <span class="resume-item-location">Jharkhand, India</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="resume-section">
-                <h2>Technical Skills</h2>
-                <ul class="skills-list">
-                    <li><strong>Network Security:</strong> Active Directory (BloodHound, Mimikatz), Nmap, Masscan, Wireshark, Bash Scripting</li>
-                    <li><strong>Web Security:</strong> Burp Suite Professional, OWASP Top 10, IDOR, SQL Injection, XSS, API Pentesting</li>
-                    <li><strong>Tools &amp; OS:</strong> Nessus (Vulnerability Assessment), Metasploit, Docker, Kali Linux, Windows (WSL)</li>
-                    <li><strong>Languages:</strong> Python (Automation), C/C++, HTML/CSS, JavaScript, SQL</li>
-                    <li><strong>Certifications:</strong> eJPT, CAP (Certified AppSec Practitioner), PT1 (Junior Pentester), HTB CPTS Path (Completed)</li>
-                </ul>
-            </div>
-
-            <div class="resume-section">
-                <h2>Vulnerability Research &amp; Case Studies</h2>
-                <div class="resume-item">
-                    <div class="resume-item-header">
-                        <span class="resume-item-title">Android 14 ADB Persistence Logic Flaw | Google VRP</span>
-                        <span class="resume-item-date">Jan 2025</span>
-                    </div>
-                    <ul class="resume-list">
-                        <li>Discovered an architectural flaw in Android 14 where the "Forget Device" UI failed to revoke the underlying RSA keys.</li>
-                        <li>Demonstrated how an attacker could maintain persistent, invisible shell access (Ghost Shell) despite user revocation.</li>
-                        <li>Provided detailed Root Cause Analysis (RCA) of the AOSP adbd service which led to Google reversing their initial "Won't Fix" decision and awarding a bounty.</li>
-                    </ul>
-                </div>
-                <div class="resume-item">
-                    <div class="resume-item-header">
-                        <span class="resume-item-title">Cloud Infrastructure RCE | Multiple Different Country</span>
-                        <span class="resume-item-date">Dec 2024</span>
-                    </div>
-                    <ul class="resume-list">
-                        <li>Identified and exploited a Remote Code Execution (RCE) vulnerability in a multi-tenant cloud environment.</li>
-                        <li>Chained a serialization flaw with weak access controls to gain initial foothold and escalate privileges.</li>
-                        <li>Reported the vulnerability with a comprehensive Proof of Concept (PoC) script, leading to an immediate patch.</li>
-                    </ul>
-                </div>
-                <div class="resume-item">
-                    <div class="resume-item-header">
-                        <span class="resume-item-title">Active Directory Attack Simulation | Home Lab</span>
-                        <span class="resume-item-date">Nov 2024</span>
-                    </div>
-                    <ul class="resume-list">
-                        <li>Simulated a complete AD forest compromise using BloodHound to map attack paths.</li>
-                        <li>Executed Kerberoasting and Golden Ticket attacks using Impacket and Mimikatz to understand TTPs.</li>
-                        <li>Practiced lateral movement and domain dominance techniques in a controlled environment.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="resume-section">
-                <h2>Leadership &amp; Community</h2>
-                <div class="resume-item">
-                    <div class="resume-item-header">
-                        <span class="resume-item-title">OWASP Club VIT Bhopal</span>
-                        <span class="resume-item-date">Aug 2024 &ndash; Present</span>
-                    </div>
-                    <div class="resume-item-subtitle">
-                        <span>CTF Developer</span>
-                        <span class="resume-item-location">Bhopal, India</span>
-                    </div>
-                    <ul class="resume-list">
-                        <li>Designed and deployed web and binary exploitation challenges for university-level CTF competitions.</li>
-                        <li>Mentored junior students on vulnerability assessment tools like Burp Suite and Nmap.</li>
-                    </ul>
-                </div>
-                <div class="resume-item">
-                    <div class="resume-item-header">
-                        <span class="resume-item-title">Null Club VIT Bhopal</span>
-                        <span class="resume-item-date">Jan 2024 &ndash; Present</span>
-                    </div>
-                    <div class="resume-item-subtitle">
-                        <span>Linux Course Developer</span>
-                        <span class="resume-item-location">Bhopal, India</span>
-                    </div>
-                    <ul class="resume-list">
-                        <li>Curated a comprehensive Linux curriculum focusing on command-line proficiency for security professionals.</li>
-                        <li>Conducted workshops on Bash scripting and system administration for 100+ students.</li>
-                    </ul>
-                </div>
-            </div>
-
+        <div class="resume-actions">
+            <button class="btn btn-primary" onclick="window.print()">Download / Print PDF</button>
+            <a href="index.html#writeups" class="btn btn-ghost">See the writeups</a>
         </div>
+
+        <section class="resume-block">
+            <h2>Hall of Fame &amp; Recognition</h2>
+            <div class="honor-line"><span class="hl-key">Apple HOF — 01/2025:</span><span>Acknowledged for identifying critical security vulnerabilities across Apple subdomains.</span></div>
+            <div class="honor-line"><span class="hl-key">Google HOF — 08/2025:</span><span>Recognized for an RCE in cloud infrastructure and a valid logic bug in Android 14; bounty awarded.</span></div>
+            <div class="honor-line"><span class="hl-key">NCIIPC — 04/2025:</span><span>Reported a data leak exposing the PII of 12,000+ users.</span></div>
+            <div class="honor-line"><span class="hl-key">Google VRP:</span><span>Bounty for a persistent-access flaw in Android 14 ADB authorization.</span></div>
+        </section>
+
+        <section class="resume-block">
+            <h2>Technical Skills</h2>
+            <div class="skills-table">
+                <div class="skill-row"><span class="sk-label">Web</span><div class="chips"><span>Burp Suite Pro</span><span>OWASP Top 10</span><span>IDOR</span><span>SQLi</span><span>XSS</span><span>API Pentesting</span></div></div>
+                <div class="skill-row"><span class="sk-label">Network / AD</span><div class="chips"><span>BloodHound</span><span>Mimikatz</span><span>Certipy</span><span>Impacket</span><span>Nmap</span><span>Masscan</span><span>Wireshark</span><span>Responder</span></div></div>
+                <div class="skill-row"><span class="sk-label">Tools / OS</span><div class="chips"><span>Nessus</span><span>Metasploit</span><span>Docker</span><span>Kali Linux</span><span>Windows / WSL</span></div></div>
+                <div class="skill-row"><span class="sk-label">Languages</span><div class="chips"><span>Python</span><span>C / C++</span><span>Bash</span><span>JavaScript</span><span>SQL</span><span>HTML / CSS</span></div></div>
+                <div class="skill-row"><span class="sk-label">Certifications</span><div class="chips"><span>eJPT</span><span>CAP</span><span>PT1</span><span>HTB CPTS (path)</span></div></div>
+            </div>
+        </section>
+
+        <section class="resume-block">
+            <h2>Vulnerability Research</h2>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-head"><span class="tl-title">Android 14 ADB Persistence Logic Flaw — Google VRP</span><span class="tl-date">Jan 2025</span></div>
+                    <ul class="tl-list">
+                        <li>Found an architectural flaw where the "Forget Device" UI failed to revoke the underlying RSA keys.</li>
+                        <li>Demonstrated persistent, invisible shell access (Ghost Shell) surviving user revocation.</li>
+                        <li>RCA of the AOSP adbd service reversed Google's initial "Won't Fix" into a bounty.</li>
+                    </ul>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-head"><span class="tl-title">Cloud Infrastructure RCE</span><span class="tl-date">Dec 2024</span></div>
+                    <ul class="tl-list">
+                        <li>Exploited an RCE in a multi-tenant cloud environment across several regions.</li>
+                        <li>Chained a serialization flaw with weak access controls for foothold and privilege escalation.</li>
+                        <li>Reported with a full PoC; immediate patch issued.</li>
+                    </ul>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-head"><span class="tl-title">Active Directory Attack Simulation — Home Lab</span><span class="tl-date">Nov 2024</span></div>
+                    <ul class="tl-list">
+                        <li>Simulated full AD forest compromise, mapping attack paths with BloodHound.</li>
+                        <li>Executed Kerberoasting and Golden Ticket attacks via Impacket and Mimikatz.</li>
+                        <li>Practiced lateral movement and domain-dominance TTPs in a controlled lab.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="resume-block">
+            <h2>Leadership &amp; Community</h2>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-head"><span class="tl-title">OWASP Club, VIT Bhopal — CTF Developer</span><span class="tl-date">Aug 2024 – Present</span></div>
+                    <ul class="tl-list">
+                        <li>Designed and deployed web and binary exploitation challenges for university CTFs.</li>
+                        <li>Mentored juniors on Burp Suite, Nmap and vulnerability assessment.</li>
+                    </ul>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-head"><span class="tl-title">Null Club, VIT Bhopal — Linux Course Developer</span><span class="tl-date">Jan 2024 – Present</span></div>
+                    <ul class="tl-list">
+                        <li>Built a Linux curriculum focused on command-line proficiency for security work.</li>
+                        <li>Ran Bash scripting and sysadmin workshops for 100+ students.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="resume-block">
+            <h2>Education</h2>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-head"><span class="tl-title">Vellore Institute of Technology (VIT)</span><span class="tl-date">2023 – 2027</span></div>
+                    <p class="tl-sub">B.Tech, Computer Science — Cyber Security Specialization &bull; Bhopal, India</p>
+                    <ul class="tl-list"><li>Coursework: Network Security, Cryptography, Linux Administration, C/C++.</li></ul>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-head"><span class="tl-title">DPS Bokaro</span><span class="tl-date">2021 – 2023</span></div>
+                    <p class="tl-sub">Higher Secondary School &bull; Jharkhand, India</p>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer>
-        <p class="subtitle_mono">> The Devil Never Sleeps. Snehil Shourya &copy; 2026</p>
+    <footer class="footer">
+        <p class="footer-copy muted">&copy; 2026 Snehil Shourya &bull; built in the dark</p>
     </footer>
 
     <script src="js/utils.js"></script>
