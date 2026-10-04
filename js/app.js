@@ -9,6 +9,20 @@ let MOUSE = { x: -9999, y: -9999, on: false };
 window.addEventListener('mousemove', (e) => { MOUSE.x = e.clientX; MOUSE.y = e.clientY; MOUSE.on = true; });
 window.addEventListener('mouseout', () => { MOUSE.on = false; });
 
+/* trace a smooth Catmull-Rom-ish path (quadratic through midpoints) */
+function traceSmooth(ctx, p, move) {
+    const n = p.length;
+    if (n === 0) return;
+    if (move) ctx.moveTo(p[0][0], p[0][1]); else ctx.lineTo(p[0][0], p[0][1]);
+    if (n < 3) { for (let i = 1; i < n; i++) ctx.lineTo(p[i][0], p[i][1]); return; }
+    let i;
+    for (i = 1; i < n - 2; i++) {
+        const xc = (p[i][0] + p[i + 1][0]) / 2, yc = (p[i][1] + p[i + 1][1]) / 2;
+        ctx.quadraticCurveTo(p[i][0], p[i][1], xc, yc);
+    }
+    ctx.quadraticCurveTo(p[i][0], p[i][1], p[i + 1][0], p[i + 1][1]);
+}
+
 /* ---- shared tentacle renderer ----
    Draws one writhing symbiote tentacle: a filled body thick at the
    rooted base, tapering to a fine tip, with a glowing wet rim. */
@@ -19,10 +33,10 @@ function drawTendril(ctx, t, o) {
     const maxSeg = Math.max(2, Math.floor(segs * (o.grow == null ? 1 : o.grow)));
     const pts = [[x, y]];
     for (let i = 0; i < maxSeg; i++) {
-        dir += Math.sin(t * o.speed + i * 0.55 + o.phase) * o.bend;
+        dir += Math.sin(t * o.speed + i * 0.4 + o.phase) * o.bend;
         if (o.reach && MOUSE.on) {
             const dx = MOUSE.x - x, dy = MOUSE.y - y, d = Math.hypot(dx, dy);
-            if (d < 280) { dir += (Math.atan2(dy, dx) - dir) * 0.06 * (1 - d / 280); }
+            if (d < 280) { dir += (Math.atan2(dy, dx) - dir) * 0.055 * (1 - d / 280); }
         }
         const taper = 1 - i / segs;
         x += Math.cos(dir) * o.segLen * (0.72 + 0.28 * taper);
@@ -33,11 +47,11 @@ function drawTendril(ctx, t, o) {
     if (n < 2) return pts;
 
     const base = o.width || 8;   // half-width at the root
-    // half-width per point: thick at base, keeps body, tapers to a point
+    // half-width per point: thick at base, keeps body, tapers smoothly to a point
     const hw = new Array(n);
     for (let i = 0; i < n; i++) {
         const u = i / (n - 1);
-        hw[i] = Math.max(0.35, base * Math.pow(1 - u, 0.68) * (0.85 + 0.15 * Math.sin(u * 7 + o.phase)));
+        hw[i] = Math.max(0.3, base * Math.pow(1 - u, 0.6) * (0.93 + 0.07 * Math.sin(u * 3 + o.phase)));
     }
     // build left/right edges from perpendicular normals
     const L = new Array(n), R = new Array(n);
@@ -51,9 +65,8 @@ function drawTendril(ctx, t, o) {
 
     // filled tentacle body (dark-blue so the silhouette reads on black)
     ctx.beginPath();
-    ctx.moveTo(L[0][0], L[0][1]);
-    for (let i = 1; i < n; i++) ctx.lineTo(L[i][0], L[i][1]);
-    for (let i = n - 1; i >= 0; i--) ctx.lineTo(R[i][0], R[i][1]);
+    traceSmooth(ctx, L, true);
+    traceSmooth(ctx, R.slice().reverse(), false);
     ctx.closePath();
     const grad = ctx.createLinearGradient(pts[0][0], pts[0][1], pts[n - 1][0], pts[n - 1][1]);
     grad.addColorStop(0, 'rgba(22,30,52,0.96)');
@@ -70,8 +83,7 @@ function drawTendril(ctx, t, o) {
 
     // wet sheen spine down the middle
     ctx.beginPath();
-    ctx.moveTo(pts[0][0], pts[0][1]);
-    for (let i = 1; i < n; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    traceSmooth(ctx, pts, true);
     ctx.lineWidth = Math.max(0.6, base * 0.3);
     ctx.lineCap = 'round';
     ctx.strokeStyle = 'rgba(90,150,230,0.14)';
@@ -82,11 +94,11 @@ function drawTendril(ctx, t, o) {
     ctx.shadowColor = 'rgba(120,185,255,0.9)';
     ctx.shadowBlur = 6;
     ctx.lineWidth = 1.1;
+    ctx.lineJoin = 'round';
     ctx.strokeStyle = `rgba(190,215,255,${o.rim == null ? 0.42 : o.rim})`;
     for (const E of [L, R]) {
         ctx.beginPath();
-        ctx.moveTo(E[0][0], E[0][1]);
-        for (let i = 1; i < n; i++) ctx.lineTo(E[i][0], E[i][1]);
+        traceSmooth(ctx, E, true);
         ctx.stroke();
     }
     ctx.restore();
@@ -134,9 +146,9 @@ function initTendrils() {
             tendrils.push({
                 x: a.x, y: a.y,
                 angle: a.angle + (Math.random() - 0.5) * 0.8,
-                segs: 13 + ((Math.random() * 7) | 0),
-                segLen: 18 + Math.random() * 14,
-                bend: 0.1 + Math.random() * 0.09,
+                segs: 14 + ((Math.random() * 7) | 0),
+                segLen: 20 + Math.random() * 16,
+                bend: 0.065 + Math.random() * 0.055,
                 phase: Math.random() * Math.PI * 2,
                 speed: 0.004 + Math.random() * 0.004,
                 width: 11 + Math.random() * 8,
@@ -218,7 +230,7 @@ function initIntro(done) {
     const strands = [];
     for (let i = 0; i < 26; i++) {
         const ang = (i / 26) * Math.PI * 2 + Math.random() * 0.2;
-        strands.push({ x: cx(), y: cy(), angle: ang, segs: 20, segLen: 26 + Math.random() * 10, bend: 0.14 + Math.random() * 0.08, phase: Math.random() * 6, speed: 0.02, width: 9 + Math.random() * 3, rim: 0.5, tipRed: Math.random() < 0.2 });
+        strands.push({ x: cx(), y: cy(), angle: ang, segs: 20, segLen: 26 + Math.random() * 10, bend: 0.09 + Math.random() * 0.05, phase: Math.random() * 6, speed: 0.02, width: 9 + Math.random() * 3, rim: 0.5, tipRed: Math.random() < 0.2 });
     }
 
     const START = performance.now();
