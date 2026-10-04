@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Snehil Shourya — Penetration Tester, Bug Bounty Hunter & Security Researcher. Acknowledged by Apple, Google & NCIIPC.">
-    <meta name="theme-color" content="#07070a">
-    <title>Snehil Shourya — Offensive Security</title>
+    <meta name="description" content="0x00 — Snehil Shourya. Offensive security researcher & penetration tester. Acknowledged by Google, Apple, NCSC-NL & NCIIPC.">
+    <meta name="theme-color" content="#000003">
+    <title>0x00 — Snehil Shourya</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -13,15 +13,26 @@
     <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
-    <canvas id="world-map" aria-hidden="true"></canvas>
-    <div id="scanline" aria-hidden="true"></div>
+    <!-- Intro: normal world consumed by the void (once per visitor) -->
+    <div id="void-intro" aria-hidden="true">
+        <canvas id="intro-canvas"></canvas>
+        <div class="intro-core">
+            <div class="intro-logo">0x00</div>
+            <div class="intro-tag">entering the void</div>
+        </div>
+        <button id="intro-skip" type="button">skip &rsaquo;</button>
+    </div>
+
+    <canvas id="tendrils" aria-hidden="true"></canvas>
     <div id="cursor-glow" aria-hidden="true"></div>
 
     <nav class="navbar">
-        <a href="#top" class="logo">snehil<span class="logo-at">@</span>sec<span class="logo-cursor">_</span></a>
+        <a href="#top" class="logo">0x00<span class="logo-cursor">_</span></a>
         <ul class="nav-links">
-            <li><a href="#about">./about</a></li>
+            <li><a href="#whoami">./whoami</a></li>
             <li><a href="#honors">./honors</a></li>
+            <li><a href="#work">./work</a></li>
+            <li><a href="#certs">./certs</a></li>
             <li><a href="#writeups">./writeups</a></li>
             <li><a href="resume.html">./resume</a></li>
         </ul>
@@ -29,40 +40,31 @@
 
     <header id="top" class="hero">
         <div class="hero-inner">
-            <p class="hero-status"><span class="dot-live"></span> status: <span class="accent">active</span> &bull; last recon: tonight</p>
-            <h1 class="hero-name">Snehil Shourya</h1>
-            <p class="hero-role">Penetration Tester <span class="sep">/</span> Bug Bounty Hunter <span class="sep">/</span> Security Researcher</p>
-            <p class="hero-bio">I break into high-value targets before the wrong people do. Web, Active Directory and source-code audits are my playground — and when the city sleeps, the recon begins.</p>
+            <p class="hero-status"><span class="dot-live"></span> 0x00 &bull; the void is awake</p>
+            <h1 class="hero-name" data-text="Snehil Shourya">Snehil Shourya</h1>
+            <p class="hero-role">Offensive Security Researcher <span class="sep">//</span> Penetration Tester <span class="sep">//</span> Red Teamer</p>
+            <p class="hero-bio">I live where the light doesn't reach — red-teaming high-value targets across web, Active Directory and mobile, then dragging their critical flaws back into the dark. Acknowledged by Google, Apple, NCSC-NL and NCIIPC.</p>
             <div class="hero-cta">
-                <a href="#writeups" class="btn btn-primary">Read the writeups</a>
+                <a href="#writeups" class="btn btn-primary">Enter the writeups</a>
                 <a href="resume.html" class="btn btn-ghost">View resume</a>
             </div>
-            <div class="hero-stats">
-                <div class="stat"><span class="stat-num" data-count="17">0</span><span class="stat-label">Writeups</span></div>
-                <div class="stat"><span class="stat-num" data-count="3">0</span><span class="stat-label">Halls of Fame</span></div>
-                <div class="stat"><span class="stat-num" data-count="4">0</span><span class="stat-label">Certifications</span></div>
-                <div class="stat"><span class="stat-num plus" data-count="12000">0</span><span class="stat-label">PII records secured</span></div>
-            </div>
         </div>
-        <a href="#about" class="scroll-hint" aria-label="Scroll down">
-            <span class="scroll-hint-text">scroll</span>
-            <span class="scroll-hint-arrow"></span>
-        </a>
+        <a href="#whoami" class="scroll-hint" aria-label="Scroll down"><span class="scroll-hint-arrow"></span></a>
     </header>
 
     <main>
-        <section id="about" class="section reveal">
+        <section id="whoami" class="section reveal">
             <div class="container">
                 <div class="section-head">
-                    <span class="section-index">01</span>
+                    <span class="section-index">00</span>
                     <h2 class="section-title">whoami</h2>
                     <span class="section-rule"></span>
                 </div>
                 <div class="about-grid">
                     <div class="about-text">
-                        <p>I'm a cybersecurity researcher focused on <strong>offensive security</strong> — finding the vulnerabilities that matter in the targets that matter. My work spans web application pentesting, Active Directory exploitation, ADCS abuse and source-code auditing.</p>
-                        <p>I've been acknowledged by <strong>Apple</strong> and <strong>Google</strong> for responsibly disclosed vulnerabilities, reported a data leak exposing <strong>12,000+ PII records</strong> to NCIIPC, and I build CTF challenges for my university's OWASP chapter.</p>
-                        <p>Currently pursuing a B.Tech in Computer Science (Cyber Security) at VIT Bhopal, and completing the HTB CPTS path.</p>
+                        <p>I'm <strong>Snehil Shourya</strong> — handle <strong>0x00</strong>. A cybersecurity researcher focused on <strong>offensive security</strong>: internal and external red team engagements, web and API exploitation, Active Directory domain compromise, and mobile APK analysis.</p>
+                        <p>Currently a Cyber &amp; IT Risk trainee at <strong>Grant Thornton Bharat</strong>, delivering critical and high-severity findings on real client engagements. Ranked <strong>Master (Top India)</strong> on HackTheBox with <strong>150+ machines rooted</strong>, and acknowledged by Google, Apple, NCSC-NL and NCIIPC for responsibly disclosed vulnerabilities.</p>
+                        <p>B.Tech in Computer Science (Cyber Security &amp; Digital Forensics) at VIT Bhopal.</p>
                         <div class="about-links">
                             <a href="https://github.com/snehil00121/" target="_blank" rel="noopener noreferrer">GitHub</a>
                             <a href="https://www.linkedin.com/in/snehilshourya101/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -73,16 +75,20 @@
                     <div class="about-arsenal">
                         <h3 class="arsenal-title">// arsenal</h3>
                         <div class="arsenal-group">
-                            <span class="arsenal-label">Web</span>
-                            <div class="chips"><span>Burp Suite Pro</span><span>OWASP Top 10</span><span>IDOR</span><span>SQLi</span><span>XSS</span><span>API</span></div>
+                            <span class="arsenal-label">Web &amp; API</span>
+                            <div class="chips"><span>OWASP Top 10</span><span>SQLi</span><span>XSS</span><span>SSRF</span><span>IDOR</span><span>LFI/RFI</span><span>OAuth Abuse</span><span>CORS</span></div>
                         </div>
                         <div class="arsenal-group">
-                            <span class="arsenal-label">AD / Network</span>
-                            <div class="chips"><span>BloodHound</span><span>Mimikatz</span><span>Certipy</span><span>Impacket</span><span>Nmap</span><span>Responder</span></div>
+                            <span class="arsenal-label">Active Directory</span>
+                            <div class="chips"><span>Kerberoasting</span><span>AS-REP</span><span>DCSync</span><span>ACL Abuse</span><span>Golden Ticket</span><span>RBCD</span><span>BloodHound</span></div>
                         </div>
                         <div class="arsenal-group">
-                            <span class="arsenal-label">Code</span>
-                            <div class="chips"><span>Python</span><span>C / C++</span><span>Bash</span><span>JavaScript</span><span>SQL</span></div>
+                            <span class="arsenal-label">Mobile</span>
+                            <div class="chips"><span>APK Analysis</span><span>Frida</span><span>ADB</span><span>Traffic Intercept</span><span>APK RE</span></div>
+                        </div>
+                        <div class="arsenal-group">
+                            <span class="arsenal-label">Tooling / Code</span>
+                            <div class="chips"><span>Burp Suite Pro</span><span>Nuclei</span><span>Impacket</span><span>CrackMapExec</span><span>Mimikatz</span><span>Python</span><span>Bash</span><span>C/C++</span></div>
                         </div>
                     </div>
                 </div>
@@ -92,25 +98,106 @@
         <section id="honors" class="section reveal">
             <div class="container">
                 <div class="section-head">
-                    <span class="section-index">02</span>
-                    <h2 class="section-title">hall of fame</h2>
+                    <span class="section-index">01</span>
+                    <h2 class="section-title">recognition</h2>
                     <span class="section-rule"></span>
                 </div>
                 <div class="honors-grid">
                     <article class="honor-card">
                         <div class="honor-top"><span class="honor-logo"></span><span class="honor-year">2025</span></div>
-                        <h3>Apple</h3>
-                        <p>Acknowledged in the Apple Security Hall of Fame for reporting multiple vulnerabilities across Apple subdomains.</p>
+                        <h3>Google Hall of Fame</h3>
+                        <p>Bounty from Google VRP for a persistent ADB key-revocation bypass in Android 14 — after reversing a "Won't Fix" decision.</p>
                     </article>
                     <article class="honor-card">
-                        <div class="honor-top"><span class="honor-logo"></span><span class="honor-year">2025</span></div>
-                        <h3>Google</h3>
-                        <p>Hall of Fame + bounty for an RCE in cloud infrastructure and a logic bug in Android 14's ADB authorization.</p>
+                        <div class="honor-top"><span class="honor-logo"></span><span class="honor-year">2025 / 2026</span></div>
+                        <h3>Apple Hall of Fame</h3>
+                        <p>Acknowledged by Apple Product Security across two separate disclosure cycles for multiple vulnerabilities in Apple infrastructure.</p>
+                    </article>
+                    <article class="honor-card">
+                        <div class="honor-top"><span class="honor-logo"></span><span class="honor-year">2026</span></div>
+                        <h3>NCSC-NL Disclosure</h3>
+                        <p>Reported a misconfiguration in Dutch government infrastructure to the Netherlands NCSC — remediated within 48 hours.</p>
                     </article>
                     <article class="honor-card">
                         <div class="honor-top"><span class="honor-logo"></span><span class="honor-year">2025</span></div>
                         <h3>NCIIPC — India</h3>
-                        <p>Recognized for reporting a data leak exposing the PII of over 12,000 users.</p>
+                        <p>Reported a data leak exposing the PII of 12,000+ users to India's national cyber agency — acknowledged and resolved.</p>
+                    </article>
+                    <article class="honor-card">
+                        <div class="honor-top"><span class="honor-logo"></span><span class="honor-year">2026</span></div>
+                        <h3>Spot Award — Rising Star</h3>
+                        <p>Nominated by the Director, Cyber &amp; IT Risk at Grant Thornton Bharat for a critical security finding during a client engagement.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="work" class="section reveal">
+            <div class="container">
+                <div class="section-head">
+                    <span class="section-index">02</span>
+                    <h2 class="section-title">experience</h2>
+                    <span class="section-rule"></span>
+                </div>
+                <div class="timeline">
+                    <div class="tl-item">
+                        <div class="tl-head"><span class="tl-title">Summer Trainee — Cyber &amp; IT Risk</span><span class="tl-date">Jun 2026 – Dec 2026</span></div>
+                        <p class="tl-sub">Grant Thornton Bharat LLP &bull; Gurgaon, India</p>
+                        <ul class="tl-list">
+                            <li>Ran internal and external red team engagements across manufacturing, financial services and digital-lending clients — delivering critical and high-severity findings across web, infrastructure, Active Directory and physical attack surfaces.</li>
+                            <li>Reported critical vulnerabilities protecting high-value client infrastructure and large volumes of sensitive PII.</li>
+                            <li>Earned a <strong>Spot Award (Rising Star)</strong>, nominated by the Director of Cyber &amp; IT Risk, for a critical security finding during a client engagement.</li>
+                            <li>Presented critical findings to senior stakeholders and delivered Big-4 methodology reports with CVSS 3.1 scoring, PoC steps and business-impact framing.</li>
+                        </ul>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-head"><span class="tl-title">Contract Security Researcher</span><span class="tl-date">2024 – 2025</span></div>
+                        <p class="tl-sub">Ghost Penetration Test (Confidential Client) &bull; Remote</p>
+                        <ul class="tl-list">
+                            <li>Conducted a white-box penetration test across two isolated server environments — identifying critical misconfigurations, exposed services and privilege-escalation vectors.</li>
+                            <li>Delivered a structured report with CVSS scoring, PoC steps and remediation; 100% of findings confirmed patched by the client.</li>
+                        </ul>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-head"><span class="tl-title">HackTheBox — Master Rank</span><span class="tl-date">2024 – Present</span></div>
+                        <p class="tl-sub">Top India &bull; Remote</p>
+                        <ul class="tl-list">
+                            <li>Ranked <strong>Master (Level 62)</strong>, Top India — 150+ machines rooted across Windows AD, privilege escalation and web exploitation.</li>
+                            <li>Placed 809th of 8,130 teams in HTB Cyber Apocalypse CTF 2025 (top 10%).</li>
+                        </ul>
+                    </div>
+                    <div class="tl-item">
+                        <div class="tl-head"><span class="tl-title">Tech Lead &amp; CTF Developer</span><span class="tl-date">Aug 2024 – Present</span></div>
+                        <p class="tl-sub">OWASP Club, VIT Bhopal &bull; Bhopal, India</p>
+                        <ul class="tl-list">
+                            <li>Designed and deployed 10+ offensive-security CTF challenges; led technical operations for a 50+ member chapter.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="certs" class="section reveal">
+            <div class="container">
+                <div class="section-head">
+                    <span class="section-index">03</span>
+                    <h2 class="section-title">certifications</h2>
+                    <span class="section-rule"></span>
+                </div>
+                <div class="certs-grid">
+                    <article class="cert-card">
+                        <div class="cert-badge">CPTS</div>
+                        <div class="cert-body">
+                            <h3>Certified Penetration Testing Specialist</h3>
+                            <p>Hack The Box</p>
+                        </div>
+                    </article>
+                    <article class="cert-card">
+                        <div class="cert-badge">eJPT</div>
+                        <div class="cert-body">
+                            <h3>eLearnSecurity Junior Penetration Tester</h3>
+                            <p>INE / eLearnSecurity</p>
+                        </div>
                     </article>
                 </div>
             </div>
@@ -119,15 +206,15 @@
         <section id="writeups" class="section reveal">
             <div class="container">
                 <div class="section-head">
-                    <span class="section-index">03</span>
+                    <span class="section-index">04</span>
                     <h2 class="section-title">writeups</h2>
                     <span class="section-rule"></span>
                 </div>
-                <p class="section-sub">Field notes from boxes I've rooted and bugs I've chained. <span id="wu-count"></span></p>
+                <p class="section-sub">Field notes from the dark — boxes rooted and bugs chained. <span id="wu-count"></span></p>
                 <div class="filter-tabs" id="filter-tabs"></div>
                 <div id="writeups-grid" class="writeups-grid">
-                    <noscript><p class="muted">Enable JavaScript to browse the writeups, or view them directly in <a href="api/writeups.json">the archive</a>.</p></noscript>
-                    <p class="loading muted">decrypting archive&hellip;</p>
+                    <noscript><p class="muted">Enable JavaScript to browse the writeups, or read them in <a href="api/writeups.json">the archive</a>.</p></noscript>
+                    <p class="loading muted">summoning the archive&hellip;</p>
                 </div>
             </div>
         </section>
@@ -136,8 +223,8 @@
     <footer class="footer">
         <div class="container footer-inner">
             <div>
-                <p class="footer-brand">snehil@sec</p>
-                <p class="muted">The devil never sleeps. Neither does the recon.</p>
+                <p class="footer-brand">0x00</p>
+                <p class="muted">The void remembers every packet.</p>
             </div>
             <div class="footer-links">
                 <a href="https://github.com/snehil00121/" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -146,7 +233,7 @@
                 <a href="mailto:snehilshourya2913@gmail.com">Email</a>
             </div>
         </div>
-        <p class="footer-copy muted">&copy; 2026 Snehil Shourya &bull; built in the dark</p>
+        <p class="footer-copy muted">&copy; 2026 Snehil Shourya &bull; 0x00 &bull; born in the void</p>
     </footer>
 
     <script src="js/utils.js"></script>

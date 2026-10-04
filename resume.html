@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume — Snehil Shourya</title>
+    <title>Resume — Snehil Shourya (0x00)</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -11,12 +11,13 @@
     <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
+    <canvas id="tendrils" aria-hidden="true"></canvas>
     <div id="cursor-glow" aria-hidden="true"></div>
 
     <nav class="navbar">
-        <a href="index.html" class="logo">snehil<span class="logo-at">@</span>sec<span class="logo-cursor">_</span></a>
+        <a href="index.html" class="logo">0x00<span class="logo-cursor">_</span></a>
         <ul class="nav-links">
-            <li><a href="index.html#about">./about</a></li>
+            <li><a href="index.html#whoami">./whoami</a></li>
             <li><a href="index.html#writeups">./writeups</a></li>
             <li><a href="index.html">./home</a></li>
         </ul>
@@ -25,16 +26,14 @@
     <main class="resume-main">
         <header class="resume-head">
             <h1>Snehil Shourya</h1>
-            <p class="resume-role">Security Researcher &bull; Penetration Tester</p>
+            <p class="resume-handle">0x00</p>
+            <p class="resume-role">Offensive Security Researcher &bull; Penetration Tester</p>
             <div class="resume-contact">
-                <a href="mailto:snehilshourya2913@gmail.com">snehilshourya2913@gmail.com</a>
-                <span>&bull;</span>
-                <a href="tel:+916206489020">+91 6206489020</a>
-                <span>&bull;</span>
-                <a href="https://www.linkedin.com/in/snehilshourya101/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                <span>&bull;</span>
-                <a href="https://github.com/snehil00121/" target="_blank" rel="noopener noreferrer">GitHub</a>
-                <span>&bull;</span>
+                <span>Gurgaon, India</span><span>&bull;</span>
+                <a href="mailto:snehilshourya2913@gmail.com">snehilshourya2913@gmail.com</a><span>&bull;</span>
+                <a href="tel:+916206489020">+91 6206489020</a><span>&bull;</span>
+                <a href="https://www.linkedin.com/in/snehilshourya101/" target="_blank" rel="noopener noreferrer">LinkedIn</a><span>&bull;</span>
+                <a href="https://github.com/snehil00121/" target="_blank" rel="noopener noreferrer">GitHub</a><span>&bull;</span>
                 <a href="https://mrtom001.medium.com/" target="_blank" rel="noopener noreferrer">Medium</a>
             </div>
         </header>
@@ -45,71 +44,97 @@
         </div>
 
         <section class="resume-block">
-            <h2>Hall of Fame &amp; Recognition</h2>
-            <div class="honor-line"><span class="hl-key">Apple HOF — 01/2025:</span><span>Acknowledged for identifying critical security vulnerabilities across Apple subdomains.</span></div>
-            <div class="honor-line"><span class="hl-key">Google HOF — 08/2025:</span><span>Recognized for an RCE in cloud infrastructure and a valid logic bug in Android 14; bounty awarded.</span></div>
-            <div class="honor-line"><span class="hl-key">NCIIPC — 04/2025:</span><span>Reported a data leak exposing the PII of 12,000+ users.</span></div>
-            <div class="honor-line"><span class="hl-key">Google VRP:</span><span>Bounty for a persistent-access flaw in Android 14 ADB authorization.</span></div>
+            <h2>Awards &amp; Recognition</h2>
+            <div class="honor-line"><span class="hl-key">Google Hall of Fame (2025):</span><span>Bounty from Google VRP for a persistent ADB key-revocation bypass in Android 14 — after reversing a "Won't Fix" decision.</span></div>
+            <div class="honor-line"><span class="hl-key">Apple Hall of Fame (2025, 2026):</span><span>Acknowledged by Apple Product Security across two separate disclosure cycles for multiple vulnerabilities in Apple infrastructure.</span></div>
+            <div class="honor-line"><span class="hl-key">NCSC-NL Coordinated Disclosure (2026):</span><span>Reported a misconfiguration in Dutch government infrastructure — remediated within 48 hours.</span></div>
+            <div class="honor-line"><span class="hl-key">NCIIPC Acknowledgement (Apr 2025):</span><span>Reported a data leak exposing the PII of 12,000+ users to India's national cyber agency.</span></div>
+            <div class="honor-line"><span class="hl-key">Spot Award — Rising Star (Aug 2026):</span><span>Nominated by the Director, Cyber &amp; IT Risk at Grant Thornton Bharat for a critical security finding during a client engagement.</span></div>
+        </section>
+
+        <section class="resume-block">
+            <h2>Experience</h2>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-head"><span class="tl-title">Summer Trainee — Cyber &amp; IT Risk</span><span class="tl-date">Jun 2026 – Dec 2026</span></div>
+                    <p class="tl-sub">Grant Thornton Bharat LLP &bull; Gurgaon, India</p>
+                    <ul class="tl-list">
+                        <li>Performed internal and external red team engagements across manufacturing, financial-services and digital-lending clients — delivering critical and high-severity findings across web, infrastructure, Active Directory and physical attack surfaces.</li>
+                        <li>Reported critical vulnerabilities protecting high-value client infrastructure and large volumes of sensitive PII; earned a Spot Award (Rising Star) for a critical finding during a client engagement.</li>
+                        <li>Presented critical findings to senior stakeholders and delivered Big-4 methodology reports with CVSS 3.1 scoring, PoC reproduction steps and business-impact framing — leveraging AI-augmented workflows for recon, attack-path analysis and reporting.</li>
+                    </ul>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-head"><span class="tl-title">Contract Security Researcher</span><span class="tl-date">2024 – 2025</span></div>
+                    <p class="tl-sub">Ghost Penetration Test (Confidential Client) &bull; Remote</p>
+                    <ul class="tl-list">
+                        <li>Conducted a white-box penetration test across two isolated server environments — identifying critical misconfigurations, exposed services and privilege-escalation vectors.</li>
+                        <li>Delivered a structured report with CVSS scoring, PoC steps and remediation guidance; 100% of findings confirmed patched by the client.</li>
+                    </ul>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-head"><span class="tl-title">HackTheBox — Master Rank</span><span class="tl-date">2024 – Present</span></div>
+                    <p class="tl-sub">Top India &bull; Remote</p>
+                    <ul class="tl-list">
+                        <li>Ranked Master (Level 62), Top India — 150+ machines rooted covering Windows AD, privilege escalation and web exploitation.</li>
+                        <li>Placed 809th of 8,130 teams in HTB Cyber Apocalypse CTF 2025 (top 10%).</li>
+                    </ul>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-head"><span class="tl-title">Tech Lead &amp; CTF Developer</span><span class="tl-date">Aug 2024 – Present</span></div>
+                    <p class="tl-sub">OWASP Club, VIT Bhopal &bull; Bhopal, India</p>
+                    <ul class="tl-list">
+                        <li>Designed and deployed 10+ offensive-security CTF challenges; led technical operations for a 50+ member chapter.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="resume-block">
+            <h2>Security Research &amp; Projects</h2>
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-head"><span class="tl-title">Android 14 ADB Persistent Shell — Google VRP</span><span class="tl-date">Jan 2025</span></div>
+                    <ul class="tl-list">
+                        <li>Discovered Android 14's "Forget Device" UI failed to revoke underlying RSA keys, enabling persistent invisible ADB shell access post-revocation.</li>
+                        <li>Root-cause analysis of the AOSP adbd service with a full PoC led Google to reverse a "Won't Fix" decision and ship a patch.</li>
+                    </ul>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-head"><span class="tl-title">NPM Dependency Confusion — Supply-Chain RCE</span><span class="tl-date">Dec 2024</span></div>
+                    <p class="tl-sub">Published on Medium</p>
+                    <ul class="tl-list">
+                        <li>Found an exposed package.json on a Bugcrowd-scoped target referencing private internal npm namespaces absent from the public registry.</li>
+                        <li>PoC payload executed via a postinstall hook across 12+ automated CI/CD pipelines on GCP and Tencent Cloud with zero user interaction — confirming real-world supply-chain risk. Responsible disclosure conducted; packages unpublished post-research.</li>
+                    </ul>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-head"><span class="tl-title">Active Directory Exploitation Lab</span><span class="tl-date">2025</span></div>
+                    <p class="tl-sub">Home Lab + HTB Pro Labs</p>
+                    <ul class="tl-list">
+                        <li>Simulated full AD forest compromise across a 14-machine enterprise network — BloodHound enumeration, Kerberoasting, AS-REP Roasting, Golden Ticket, DCSync and ACL abuse; TTPs mapped to MITRE ATT&amp;CK.</li>
+                        <li>Completed HTB Pro Labs Dante and POO; rooted 150+ machines across HackTheBox and TryHackMe.</li>
+                    </ul>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-head"><span class="tl-title">ECHO — Subdomain Enumerator</span><span class="tl-date">2024</span></div>
+                    <p class="tl-sub">Python &bull; GitHub</p>
+                    <ul class="tl-list">
+                        <li>Built a passive subdomain-enumeration tool aggregating multiple OSINT sources with deduplication and structured export for recon pipelines.</li>
+                    </ul>
+                </div>
+            </div>
         </section>
 
         <section class="resume-block">
             <h2>Technical Skills</h2>
             <div class="skills-table">
-                <div class="skill-row"><span class="sk-label">Web</span><div class="chips"><span>Burp Suite Pro</span><span>OWASP Top 10</span><span>IDOR</span><span>SQLi</span><span>XSS</span><span>API Pentesting</span></div></div>
-                <div class="skill-row"><span class="sk-label">Network / AD</span><div class="chips"><span>BloodHound</span><span>Mimikatz</span><span>Certipy</span><span>Impacket</span><span>Nmap</span><span>Masscan</span><span>Wireshark</span><span>Responder</span></div></div>
-                <div class="skill-row"><span class="sk-label">Tools / OS</span><div class="chips"><span>Nessus</span><span>Metasploit</span><span>Docker</span><span>Kali Linux</span><span>Windows / WSL</span></div></div>
-                <div class="skill-row"><span class="sk-label">Languages</span><div class="chips"><span>Python</span><span>C / C++</span><span>Bash</span><span>JavaScript</span><span>SQL</span><span>HTML / CSS</span></div></div>
-                <div class="skill-row"><span class="sk-label">Certifications</span><div class="chips"><span>eJPT</span><span>CAP</span><span>PT1</span><span>HTB CPTS (path)</span></div></div>
-            </div>
-        </section>
-
-        <section class="resume-block">
-            <h2>Vulnerability Research</h2>
-            <div class="timeline">
-                <div class="tl-item">
-                    <div class="tl-head"><span class="tl-title">Android 14 ADB Persistence Logic Flaw — Google VRP</span><span class="tl-date">Jan 2025</span></div>
-                    <ul class="tl-list">
-                        <li>Found an architectural flaw where the "Forget Device" UI failed to revoke the underlying RSA keys.</li>
-                        <li>Demonstrated persistent, invisible shell access (Ghost Shell) surviving user revocation.</li>
-                        <li>RCA of the AOSP adbd service reversed Google's initial "Won't Fix" into a bounty.</li>
-                    </ul>
-                </div>
-                <div class="tl-item">
-                    <div class="tl-head"><span class="tl-title">Cloud Infrastructure RCE</span><span class="tl-date">Dec 2024</span></div>
-                    <ul class="tl-list">
-                        <li>Exploited an RCE in a multi-tenant cloud environment across several regions.</li>
-                        <li>Chained a serialization flaw with weak access controls for foothold and privilege escalation.</li>
-                        <li>Reported with a full PoC; immediate patch issued.</li>
-                    </ul>
-                </div>
-                <div class="tl-item">
-                    <div class="tl-head"><span class="tl-title">Active Directory Attack Simulation — Home Lab</span><span class="tl-date">Nov 2024</span></div>
-                    <ul class="tl-list">
-                        <li>Simulated full AD forest compromise, mapping attack paths with BloodHound.</li>
-                        <li>Executed Kerberoasting and Golden Ticket attacks via Impacket and Mimikatz.</li>
-                        <li>Practiced lateral movement and domain-dominance TTPs in a controlled lab.</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section class="resume-block">
-            <h2>Leadership &amp; Community</h2>
-            <div class="timeline">
-                <div class="tl-item">
-                    <div class="tl-head"><span class="tl-title">OWASP Club, VIT Bhopal — CTF Developer</span><span class="tl-date">Aug 2024 – Present</span></div>
-                    <ul class="tl-list">
-                        <li>Designed and deployed web and binary exploitation challenges for university CTFs.</li>
-                        <li>Mentored juniors on Burp Suite, Nmap and vulnerability assessment.</li>
-                    </ul>
-                </div>
-                <div class="tl-item">
-                    <div class="tl-head"><span class="tl-title">Null Club, VIT Bhopal — Linux Course Developer</span><span class="tl-date">Jan 2024 – Present</span></div>
-                    <ul class="tl-list">
-                        <li>Built a Linux curriculum focused on command-line proficiency for security work.</li>
-                        <li>Ran Bash scripting and sysadmin workshops for 100+ students.</li>
-                    </ul>
-                </div>
+                <div class="skill-row"><span class="sk-label">Tools</span><div class="chips"><span>Burp Suite Pro</span><span>Metasploit</span><span>Nmap</span><span>Nuclei</span><span>SQLMap</span><span>ffuf</span><span>BloodHound</span><span>Mimikatz</span><span>Impacket</span><span>CrackMapExec</span><span>Wireshark</span></div></div>
+                <div class="skill-row"><span class="sk-label">Web Security</span><div class="chips"><span>OWASP Top 10</span><span>SQLi</span><span>XSS</span><span>SSRF</span><span>IDOR</span><span>LFI/RFI</span><span>OAuth Abuse</span><span>CORS</span><span>API Pentesting</span></div></div>
+                <div class="skill-row"><span class="sk-label">Mobile Security</span><div class="chips"><span>APK Analysis</span><span>Frida</span><span>ADB</span><span>Mobile OWASP Top 10</span><span>Traffic Interception</span><span>APK RE</span></div></div>
+                <div class="skill-row"><span class="sk-label">Active Directory</span><div class="chips"><span>Kerberoasting</span><span>AS-REP Roasting</span><span>DCSync</span><span>ACL Abuse</span><span>Golden Ticket</span><span>RBCD</span><span>BloodHound</span></div></div>
+                <div class="skill-row"><span class="sk-label">Programming</span><div class="chips"><span>Python</span><span>Bash</span><span>C/C++</span><span>SQL</span></div></div>
+                <div class="skill-row"><span class="sk-label">Certifications</span><div class="chips"><span>HTB CPTS</span><span>eJPT</span></div></div>
             </div>
         </section>
 
@@ -117,22 +142,18 @@
             <h2>Education</h2>
             <div class="timeline">
                 <div class="tl-item">
-                    <div class="tl-head"><span class="tl-title">Vellore Institute of Technology (VIT)</span><span class="tl-date">2023 – 2027</span></div>
-                    <p class="tl-sub">B.Tech, Computer Science — Cyber Security Specialization &bull; Bhopal, India</p>
-                    <ul class="tl-list"><li>Coursework: Network Security, Cryptography, Linux Administration, C/C++.</li></ul>
-                </div>
-                <div class="tl-item">
-                    <div class="tl-head"><span class="tl-title">DPS Bokaro</span><span class="tl-date">2021 – 2023</span></div>
-                    <p class="tl-sub">Higher Secondary School &bull; Jharkhand, India</p>
+                    <div class="tl-head"><span class="tl-title">Vellore Institute of Technology (VIT) Bhopal</span><span class="tl-date">2023 – 2027</span></div>
+                    <p class="tl-sub">B.Tech — Computer Science, Specialization in Cyber Security &amp; Digital Forensics &bull; Bhopal, India</p>
                 </div>
             </div>
         </section>
     </main>
 
     <footer class="footer">
-        <p class="footer-copy muted">&copy; 2026 Snehil Shourya &bull; built in the dark</p>
+        <p class="footer-copy muted">&copy; 2026 Snehil Shourya &bull; 0x00 &bull; born in the void</p>
     </footer>
 
     <script src="js/utils.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

@@ -1,196 +1,246 @@
 /* ============================================================
-   Snehil Shourya — portfolio runtime
-   Self-contained: no external JS dependency. If anything here
-   throws, content still renders (reveal failsafe + plain cards).
+   0x00 — runtime
+   Knull/Venom theme: living symbiote tendrils + intro sequence.
+   No external JS dependency; content renders even if this throws.
    ============================================================ */
 
-/* ---- Embedded world land grid (rasterized from world-atlas) ---- */
-const WORLD = {
-    cols: 150, rows: 64, latTop: 80, latSpan: 138,
-    data: ["0000000063f8fffff8003c0000000780000000","0000003006f8fffff0000000004001c0000000","0000000201e007fff80000000c007fe0000000","0000006fbde803fff00000001021ffffe1c000","003e0003c67f83ffc00001c0006fffffffff00","1fffffffffffffffffffe006c0400000000000","23ffffffffffffffffffc01c00000000000000","003ffffffe51c1f00c007bfffffffffffffffe","00fffffffc0600e00001f3fffffffffffffff8","00381ffffc0700000001f97fffffffffffe880","001007fffc07e000001033fffffffffffe0380","004003ffffcff000001083fffffffffffc0300","000001ffffeffc000059ffffffffffffff8200","000000fffffff400001bffffffffffffff8000","0000003fffff4e00001ffffffffffffffe8000","0000007fffffc000000ffff7dffffffffe0000","0000007fffffc000000fdf87bffffffffc8000","0000007fffff0000007c27839ffffffff18000","0000007ffffc000000789cffdffffffec10000","0000003ffffc0000007822ff9ffffffc610000","0000003ffff800000007c00ffffffffe230000","0000000ffff00000003fc00ffffffffe1c0000","0000000bffe00000007ff71fffffffff100000","00000007f9200000007fffffbfffffff000000","00000005f010000001ffffefdffffffe000000","00000002f008000001ffffffc07fffff000000","000000007030000003fffff7fc3ffff9000000","000000007184000003fffff7f81f9f80000000","000000003b01800003fffffbf81f0fa0000000","000000000f00000003fffff9e00e0bc1000000","0000000001c0000003fffffd800c03c1000000","000000000040000003fffffe000c02e0000000","000000000047e00001ffffffc0040002800000","00000000001ff00000ffffffc0020200400000","000000000007fe000079ffff80000104000000","000000000007ff0000007fff8000050c000000","00000000000fff0000007fff0000033c200000","00000000001fff8000007ffe0000011c080000","00000000000ffff000007ffc0000018d2b0000","00000000001ffffc00003ff80000008003d000","00000000000ffffe00003ff80000007001c200","00000000000ffffc00003ffc00000000002000","000000000007fff800001ffc00000000088000","000000000007fff800003ffc400000001c8000","000000000003fff800003ffcc00000007cc000","000000000000fff800003ff1c0000000ffc000","000000000000fff000003fe180000001ffe040","000000000000fff000001ff18000000ffff000","000000000000ff8000001fe18000000ffff000","000000000001ff8000001fe00000000ffff800","000000000001ff8000000fc000000007fff800","000000000001ff0000000fc000000007fff800","000000000001fe00000007000000000787f000","000000000001f800000000000000000001f004","000000000003f800000000000000000001e000","000000000003e0000000000000000000000002","000000000003c000000000000000000000600c","000000000001c0000000000000000000000018","00000000000380000000000000000000000030","00000000000380000000000000000000000000","00000000000300000000000000000000000000","00000000000300000000000000000000000000","000000000001c0000000000000000000000000","00000000000000000000000000000000000000"]
-};
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let MOUSE = { x: -9999, y: -9999, on: false };
+window.addEventListener('mousemove', (e) => { MOUSE.x = e.clientX; MOUSE.y = e.clientY; MOUSE.on = true; });
+window.addEventListener('mouseout', () => { MOUSE.on = false; });
 
-function landCells() {
-    const cells = [];
-    for (let r = 0; r < WORLD.rows; r++) {
-        const bits = WORLD.data[r].split('').map(h => parseInt(h, 16).toString(2).padStart(4, '0')).join('');
-        for (let c = 0; c < WORLD.cols; c++) {
-            if (bits[c] === '1') cells.push([c, r]);
+/* ---- shared tendril renderer ----
+   Draws one writhing, tapering, glowing symbiote strand. */
+function drawTendril(ctx, t, o) {
+    // o: {x,y, angle, segs, segLen, bend, phase, speed, grow(0..1), reach}
+    const segs = o.segs;
+    let x = o.x, y = o.y, dir = o.angle;
+    const maxSeg = Math.max(1, Math.floor(segs * (o.grow == null ? 1 : o.grow)));
+    const pts = [[x, y]];
+    for (let i = 0; i < maxSeg; i++) {
+        dir += Math.sin(t * o.speed + i * 0.55 + o.phase) * o.bend;
+        // reach toward cursor near the strand
+        if (o.reach && MOUSE.on) {
+            const dx = MOUSE.x - x, dy = MOUSE.y - y, d = Math.hypot(dx, dy);
+            if (d < 260) { dir += (Math.atan2(dy, dx) - dir) * 0.06 * (1 - d / 260); }
         }
+        const taper = 1 - i / segs;
+        x += Math.cos(dir) * o.segLen * (0.7 + 0.3 * taper);
+        y += Math.sin(dir) * o.segLen * (0.7 + 0.3 * taper);
+        pts.push([x, y]);
     }
-    return cells;
+    // dark body (wide, tapered)
+    for (let i = 1; i < pts.length; i++) {
+        const taper = 1 - (i - 1) / segs;
+        ctx.beginPath();
+        ctx.moveTo(pts[i - 1][0], pts[i - 1][1]);
+        ctx.lineTo(pts[i][0], pts[i][1]);
+        ctx.lineCap = 'round';
+        ctx.lineWidth = Math.max(0.5, o.width * taper);
+        ctx.strokeStyle = `rgba(6,9,18,${0.85 * taper})`;
+        ctx.stroke();
+    }
+    // bright rim (thin, glowing)
+    ctx.save();
+    ctx.shadowColor = 'rgba(111,180,255,0.9)';
+    ctx.shadowBlur = 8;
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.lineWidth = 1.1;
+    ctx.strokeStyle = `rgba(190,215,255,${o.rim == null ? 0.5 : o.rim})`;
+    ctx.stroke();
+    ctx.restore();
+    // tip node
+    const tip = pts[pts.length - 1];
+    ctx.beginPath();
+    ctx.arc(tip[0], tip[1], 1.6, 0, Math.PI * 2);
+    ctx.fillStyle = o.tipRed ? 'rgba(255,87,108,0.9)' : 'rgba(200,225,255,0.85)';
+    ctx.fill();
+    return pts;
 }
 
 /* ============================================================
-   World threat-map animation
+   Ambient background tendrils
    ============================================================ */
-function initWorldMap() {
-    const canvas = document.getElementById('world-map');
+function initTendrils() {
+    const canvas = document.getElementById('tendrils');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const cells = landCells();
-
-    let W, H, dots, dpr, attacks = [];
+    let W, H, dpr, tendrils = [], motes = [];
 
     function layout() {
         dpr = Math.min(window.devicePixelRatio || 1, 2);
-        W = window.innerWidth;
-        H = window.innerHeight;
-        canvas.width = W * dpr;
-        canvas.height = H * dpr;
-        canvas.style.width = W + 'px';
-        canvas.style.height = H + 'px';
+        W = window.innerWidth; H = window.innerHeight;
+        canvas.width = W * dpr; canvas.height = H * dpr;
+        canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-        // Fit grid to viewport, biased slightly right/up, preserve aspect.
-        const gridAspect = WORLD.cols / WORLD.rows;
-        let mapW = W * (W < 760 ? 1.35 : 1.02);
-        let mapH = mapW / gridAspect * 1.08;
-        if (mapH > H * 1.25) { mapH = H * 1.25; mapW = mapH * gridAspect; }
-        const offX = (W - mapW) / 2 + (W < 760 ? 0 : W * 0.14);
-        const offY = (H - mapH) / 2 - H * 0.04;
-        const stepX = mapW / WORLD.cols;
-        const stepY = mapH / WORLD.rows;
-
-        dots = cells.map(([c, r]) => ({
-            x: offX + c * stepX,
-            y: offY + r * stepY,
-            c, r,
-            tw: Math.random() * Math.PI * 2
-        }));
+        build();
     }
 
-    function randLand() { return dots[(Math.random() * dots.length) | 0]; }
-
-    function spawnAttack() {
-        if (dots.length < 2) return;
-        const a = randLand(), b = randLand();
-        if (a === b) return;
-        const dist = Math.hypot(a.x - b.x, a.y - b.y);
-        if (dist < 120 || dist > W * 0.9) return;
-        const mx = (a.x + b.x) / 2, my = (a.y + b.y) / 2;
-        const lift = Math.min(dist * 0.4, 180);
-        attacks.push({ a, b, cx: mx, cy: my - lift, t: 0, speed: 0.006 + Math.random() * 0.006 });
+    function edgeAnchor() {
+        const side = (Math.random() * 4) | 0;
+        if (side === 0) return { x: Math.random() * W, y: -10, angle: Math.PI / 2 };
+        if (side === 1) return { x: W + 10, y: Math.random() * H, angle: Math.PI };
+        if (side === 2) return { x: Math.random() * W, y: H + 10, angle: -Math.PI / 2 };
+        return { x: -10, y: Math.random() * H, angle: 0 };
     }
 
-    function bez(p, a, cx, cy, b) {
-        const u = 1 - p;
-        return [u*u*a.x + 2*u*p*cx + p*p*b.x, u*u*a.y + 2*u*p*cy + p*p*b.y];
+    function build() {
+        const count = W < 760 ? 8 : 14;
+        tendrils = [];
+        for (let i = 0; i < count; i++) {
+            const a = edgeAnchor();
+            tendrils.push({
+                x: a.x, y: a.y,
+                angle: a.angle + (Math.random() - 0.5) * 0.8,
+                segs: 14 + ((Math.random() * 8) | 0),
+                segLen: 16 + Math.random() * 14,
+                bend: 0.12 + Math.random() * 0.1,
+                phase: Math.random() * Math.PI * 2,
+                speed: 0.004 + Math.random() * 0.004,
+                width: 5 + Math.random() * 3,
+                rim: 0.25 + Math.random() * 0.3,
+                reach: Math.random() < 0.6,
+                tipRed: Math.random() < 0.18
+            });
+        }
+        motes = [];
+        const mc = W < 760 ? 24 : 46;
+        for (let i = 0; i < mc; i++) motes.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.4 + 0.3, vy: -(0.1 + Math.random() * 0.25), vx: (Math.random() - 0.5) * 0.15, a: Math.random() * 0.5 + 0.1, red: Math.random() < 0.15 });
     }
 
-    let frame = 0;
-    function draw() {
+    let t = 0;
+    function frame() {
+        t++;
         ctx.clearRect(0, 0, W, H);
-        frame++;
-
-        // dots
-        for (const d of dots) {
-            const tw = reduced ? 0.5 : 0.5 + 0.5 * Math.sin(frame * 0.02 + d.tw);
-            const alpha = 0.10 + tw * 0.14;
+        // motes
+        for (const m of motes) {
+            m.y += m.vy; m.x += m.vx;
+            if (m.y < -5) { m.y = H + 5; m.x = Math.random() * W; }
             ctx.beginPath();
-            ctx.arc(d.x, d.y, 1.1, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(150,150,165,${alpha})`;
+            ctx.arc(m.x, m.y, m.r, 0, Math.PI * 2);
+            ctx.fillStyle = m.red ? `rgba(255,87,108,${m.a})` : `rgba(159,208,255,${m.a})`;
             ctx.fill();
         }
-
-        if (!reduced) {
-            // attacks
-            for (let i = attacks.length - 1; i >= 0; i--) {
-                const at = attacks[i];
-                at.t += at.speed;
-                // trailing arc
-                ctx.beginPath();
-                for (let s = 0; s <= 1; s += 0.04) {
-                    const tt = Math.min(s, at.t);
-                    const [x, y] = bez(tt, at.a, at.cx, at.cy, at.b);
-                    s === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-                    if (tt >= at.t) break;
-                }
-                ctx.strokeStyle = 'rgba(255,42,61,0.35)';
-                ctx.lineWidth = 1;
-                ctx.stroke();
-
-                // head
-                const [hx, hy] = bez(Math.min(at.t, 1), at.a, at.cx, at.cy, at.b);
-                ctx.beginPath();
-                ctx.arc(hx, hy, 2.2, 0, Math.PI * 2);
-                ctx.fillStyle = '#ff5a68';
-                ctx.shadowColor = '#ff2a3d';
-                ctx.shadowBlur = 10;
-                ctx.fill();
-                ctx.shadowBlur = 0;
-
-                // endpoints glow
-                for (const p of [at.a, at.b]) {
-                    ctx.beginPath();
-                    ctx.arc(p.x, p.y, 2.4, 0, Math.PI * 2);
-                    ctx.fillStyle = 'rgba(255,90,104,0.7)';
-                    ctx.fill();
-                }
-                if (at.t >= 1) {
-                    // ripple at target then remove
-                    const rp = (at.t - 1) * 60;
-                    ctx.beginPath();
-                    ctx.arc(at.b.x, at.b.y, rp, 0, Math.PI * 2);
-                    ctx.strokeStyle = `rgba(255,42,61,${Math.max(0, 0.5 - rp / 50)})`;
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-                    at.t += 0.02;
-                    if (at.t > 1.8) attacks.splice(i, 1);
-                }
-            }
-            if (attacks.length < 6 && Math.random() < 0.04) spawnAttack();
-        }
-
-        requestAnimationFrame(draw);
+        if (!REDUCED) for (const td of tendrils) drawTendril(ctx, t, td);
+        else for (const td of tendrils) drawTendril(ctx, 0, Object.assign({}, td, { speed: 0 }));
+        if (!REDUCED) requestAnimationFrame(frame);
     }
-
     layout();
-    let rt;
-    window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(layout, 150); });
-    if (reduced) { draw(); } else { for (let i = 0; i < 3; i++) spawnAttack(); draw(); }
+    let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(layout, 150); });
+    frame();
 }
 
 /* ============================================================
-   Reveal on scroll (with hard failsafe)
+   Intro: normal world consumed by the void
+   ============================================================ */
+function initIntro(done) {
+    const intro = document.getElementById('void-intro');
+    if (!intro) { done(); return; }
+    let seen = false;
+    try { seen = localStorage.getItem('voidIntroSeen') === '1'; } catch (e) {}
+
+    let fin = false;
+    const finish = () => {
+        if (fin) return;
+        fin = true;
+        try { localStorage.setItem('voidIntroSeen', '1'); } catch (e) {}
+        intro.classList.add('gone');
+        setTimeout(() => { intro.remove(); }, 800);
+        done();
+    };
+
+    document.getElementById('intro-skip')?.addEventListener('click', finish);
+    // Safety net: never let a stalled rAF leave the overlay stuck on screen.
+    setTimeout(finish, seen || REDUCED ? 120 : 3400);
+
+    if (seen || REDUCED) {
+        intro.classList.add('gone');
+        setTimeout(() => intro.remove(), 50);
+        done();
+        return;
+    }
+
+    const canvas = document.getElementById('intro-canvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, dpr;
+    function size() {
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        W = window.innerWidth; H = window.innerHeight;
+        canvas.width = W * dpr; canvas.height = H * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    size();
+    const cx = () => W / 2, cy = () => H / 2;
+
+    // tendrils erupting from center outward
+    const strands = [];
+    for (let i = 0; i < 26; i++) {
+        const ang = (i / 26) * Math.PI * 2 + Math.random() * 0.2;
+        strands.push({ x: cx(), y: cy(), angle: ang, segs: 20, segLen: 26 + Math.random() * 10, bend: 0.14 + Math.random() * 0.08, phase: Math.random() * 6, speed: 0.02, width: 6, rim: 0.55, tipRed: Math.random() < 0.2 });
+    }
+
+    const START = performance.now();
+    const HOLD = 550;        // "normal" world visible before the void
+    const DUR_FILL = 1200;   // void covers screen
+    let revealed = false;
+
+    function run(now) {
+        const el = now - START;
+        ctx.clearRect(0, 0, W, H);
+
+        if (el < HOLD) {
+            // normal-world hold: dark hint on the light screen, slowly dimming in
+            const a = 0.5 + 0.5 * Math.sin(el * 0.012);
+            ctx.font = '600 13px JetBrains Mono, monospace';
+            ctx.textAlign = 'center';
+            ctx.fillStyle = `rgba(30,34,44,${0.55 + 0.25 * a})`;
+            ctx.fillText('> booting 0x00 . . .', cx(), cy());
+            ctx.beginPath(); ctx.arc(cx(), cy(), 40 + a * 8, 0, Math.PI * 2);
+            ctx.strokeStyle = `rgba(30,34,44,${0.12 + 0.1 * a})`; ctx.lineWidth = 1; ctx.stroke();
+            requestAnimationFrame(run);
+            return;
+        }
+
+        const fp = Math.min((el - HOLD) / DUR_FILL, 1);
+        const ease = 1 - Math.pow(1 - fp, 3);
+
+        // expanding black void disc that swallows the light
+        const R = ease * Math.hypot(W, H) * 0.62;
+        const g = ctx.createRadialGradient(cx(), cy(), R * 0.2, cx(), cy(), R + 1);
+        g.addColorStop(0, 'rgba(2,3,8,1)');
+        g.addColorStop(0.82, 'rgba(2,3,8,1)');
+        g.addColorStop(1, 'rgba(2,3,8,0)');
+        ctx.beginPath(); ctx.arc(cx(), cy(), R, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
+
+        // leading shock ring
+        ctx.beginPath(); ctx.arc(cx(), cy(), R, 0, Math.PI * 2);
+        ctx.lineWidth = 2; ctx.strokeStyle = `rgba(111,180,255,${0.5 * (1 - fp)})`; ctx.stroke();
+
+        // erupting symbiote tendrils
+        const grow = Math.min(1, (el - HOLD) / 1500);
+        for (const s of strands) { s.x = cx(); s.y = cy(); drawTendril(ctx, (el - HOLD) * 0.06, Object.assign({}, s, { grow, reach: false })); }
+
+        if (fp >= 0.45 && !revealed) { revealed = true; intro.classList.add('reveal'); }
+        if (el < HOLD + 2100) requestAnimationFrame(run);
+        else finish();
+    }
+    window.addEventListener('resize', size);
+    requestAnimationFrame(run);
+}
+
+/* ============================================================
+   Reveal + counters
    ============================================================ */
 function initReveal() {
     const els = document.querySelectorAll('.reveal');
-    if (!('IntersectionObserver' in window)) {
-        els.forEach(e => e.classList.add('visible'));
-        return;
-    }
+    if (!('IntersectionObserver' in window)) { els.forEach(e => e.classList.add('visible')); return; }
     const io = new IntersectionObserver((entries) => {
         entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
     }, { threshold: 0.12 });
     els.forEach(e => io.observe(e));
-    // failsafe: never leave content hidden
     setTimeout(() => els.forEach(e => e.classList.add('visible')), 2500);
-}
-
-/* ============================================================
-   Animated stat counters
-   ============================================================ */
-function initCounters() {
-    const nums = document.querySelectorAll('.stat-num');
-    const run = (el) => {
-        const target = +el.dataset.count;
-        const dur = 1400, start = performance.now();
-        const tick = (now) => {
-            const p = Math.min((now - start) / dur, 1);
-            const eased = 1 - Math.pow(1 - p, 3);
-            let v = Math.round(target * eased);
-            el.textContent = target >= 1000 ? (v >= 1000 ? (v / 1000).toFixed(v === target ? 0 : 1) + 'k' : v) : v;
-            if (p < 1) requestAnimationFrame(tick); else { el.textContent = target >= 1000 ? (target / 1000) + 'k' : target; el.classList.add('done'); }
-        };
-        requestAnimationFrame(tick);
-    };
-    if (!('IntersectionObserver' in window)) { nums.forEach(run); return; }
-    const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => { if (e.isIntersecting) { run(e.target); io.unobserve(e.target); } });
-    }, { threshold: 0.6 });
-    nums.forEach(n => io.observe(n));
 }
 
 /* ============================================================
@@ -206,14 +256,10 @@ function parseMeta(html) {
     const os = (text.match(/\bOS\s*:\s*(Windows|Linux|FreeBSD|Android|macOS|[A-Za-z]+)/i) || [])[1] || '';
     const sum = text.search(/Executive Summary/i);
     let ex = (sum >= 0 ? text.slice(sum + 17) : text)
-        .replace(/\s+/g, ' ')
-        .replace(/^[\s:.\-–—)\]|>]+/, '')   // drop leading punctuation/colon
-        .trim()
-        .slice(0, 150);
+        .replace(/\s+/g, ' ').replace(/^[\s:.\-–—)\]|>]+/, '').trim().slice(0, 150);
     if (ex) ex = ex.replace(/\s+\S*$/, '') + '…';
     return { diff, os, excerpt: ex };
 }
-
 function diffClass(d) {
     const x = (d || '').toLowerCase();
     if (x.startsWith('easy')) return 'easy';
@@ -221,16 +267,14 @@ function diffClass(d) {
     if (x.startsWith('hard') || x.startsWith('insane')) return 'hard';
     return 'na';
 }
-
 function renderWriteups(list, grid) {
     grid.innerHTML = '';
     if (!list.length) { grid.innerHTML = '<p class="muted loading">no files in this category.</p>'; return; }
-    list.forEach((w, i) => {
+    list.forEach(w => {
         const m = parseMeta(w.content || '');
         const card = document.createElement('a');
         card.href = `writeup.html?id=${encodeURIComponent(w.id)}`;
-        card.className = 'wu-card reveal visible';
-        card.style.transitionDelay = (i % 6 * 0.04) + 's';
+        card.className = 'wu-card';
         card.innerHTML = `
             <div class="wu-meta">
                 <span class="wu-cat">${CAT_LABEL[w.category] || w.category}</span>
@@ -246,19 +290,16 @@ function renderWriteups(list, grid) {
         grid.appendChild(card);
     });
 }
-
 function initWriteups() {
     const grid = document.getElementById('writeups-grid');
     const tabs = document.getElementById('filter-tabs');
     const countEl = document.getElementById('wu-count');
     if (!grid) return;
-
     fetch('api/writeups.json')
         .then(r => { if (!r.ok) throw new Error('fetch ' + r.status); return r.json(); })
         .then(data => {
             data.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
             if (countEl) countEl.textContent = `${data.length} logged.`;
-
             const cats = ['all', ...Array.from(new Set(data.map(d => d.category)))];
             tabs.innerHTML = '';
             cats.forEach((cat, idx) => {
@@ -277,7 +318,7 @@ function initWriteups() {
         })
         .catch(err => {
             console.error(err);
-            grid.innerHTML = '<p class="muted loading">Could not load the archive. It lives at <a href="api/writeups.json" style="color:var(--red-soft)">api/writeups.json</a>.</p>';
+            grid.innerHTML = '<p class="muted loading">Could not load the archive. It lives at <a href="api/writeups.json" style="color:var(--blue-soft)">api/writeups.json</a>.</p>';
         });
 }
 
@@ -285,8 +326,8 @@ function initWriteups() {
    Boot
    ============================================================ */
 document.addEventListener('DOMContentLoaded', () => {
-    try { initWorldMap(); } catch (e) { console.error('map', e); }
+    try { initTendrils(); } catch (e) { console.error('tendrils', e); }
     try { initReveal(); } catch (e) { document.querySelectorAll('.reveal').forEach(x => x.classList.add('visible')); }
-    try { initCounters(); } catch (e) { console.error('counters', e); }
     try { initWriteups(); } catch (e) { console.error('writeups', e); }
+    try { initIntro(() => {}); } catch (e) { const i = document.getElementById('void-intro'); if (i) i.remove(); }
 });

@@ -15,7 +15,6 @@
         document.addEventListener('mouseleave', () => { glow.style.opacity = '0'; });
     }
 
-    // Highlight the nav link for the section in view.
     const links = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
     const map = {};
     links.forEach(a => { const id = a.getAttribute('href').slice(1); const s = document.getElementById(id); if (s) map[id] = a; });
